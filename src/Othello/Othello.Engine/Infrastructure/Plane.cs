@@ -1,6 +1,6 @@
 namespace Othello.Engine.Infrastructure;
 
-public struct Plane
+public class Plane
 {
     private ulong _pieces;
 
