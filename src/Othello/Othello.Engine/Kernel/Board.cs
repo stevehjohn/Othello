@@ -39,6 +39,8 @@ public class Board
 
     public bool MakeMove(Colour colour, int cell)
     {
+        SaveState();
+        
         var flipped = FlipPieces(colour, cell);
 
         if (flipped == 0)
@@ -80,7 +82,7 @@ public class Board
 
     private int FlipPieces(Colour colour, int cell)
     {
-        if (! _planes[cell])
+        if (_planes[cell])
         {
             return 0;
         }
