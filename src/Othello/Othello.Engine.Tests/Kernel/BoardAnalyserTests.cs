@@ -20,7 +20,7 @@ public class BoardAnalyserTests
         
         Assert.Equal(expected, moves);
     }
-        
+
     [Theory]
     [InlineData(Colour.White,
         0b0100000011000000000000000000000000000000000000000000000000000000ul,
