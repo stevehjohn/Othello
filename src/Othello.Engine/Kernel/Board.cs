@@ -84,6 +84,7 @@ public class Board
         }
 
         var friendly = colour == Colour.Black ? _planes.Black.Pieces : _planes.White.Pieces;
+        
         var opponent = colour == Colour.Black ? _planes.White.Pieces : _planes.Black.Pieces;
     
         var flips = 0ul;
