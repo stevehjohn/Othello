@@ -1,26 +1,20 @@
-using Othello.Engine.Bitboards;
 using Othello.Engine.Infrastructure;
+using Othello.Engine.Kernel;
 
 namespace Othello.Engine;
 
 public class Core
 {
-    private readonly Planes _board = new();
+    private readonly Board _board = new();
 
-    public void InitialiseNewGame()
+    public void StartGame()
     {
-        _board.Black[27] = true;
-
-        _board.White[28] = true;
-
-        _board.White[35] = true;
-
-        _board.Black[36] = true;
+        _board.InitialiseNewGame();
     }
 
     public bool MakeMove(Colour colour, int cell)
     {
-        var flipped = FlipPieces(colour, cell);
+        var flipped = _board.FlipPieces(colour, cell);
 
         if (flipped == 0)
         {
@@ -45,11 +39,6 @@ public class Core
     }
 
     public int GetBestMove(Colour colour)
-    {
-        throw new NotImplementedException();
-    }
-
-    private int FlipPieces(Colour colour, int newPiece)
     {
         throw new NotImplementedException();
     }
