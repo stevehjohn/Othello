@@ -65,15 +65,7 @@ public class Board
         return true;
     }
 
-    public void UndoLastMove()
-    {
-        if (_history.Count == 0)
-        {
-            return;
-        }
-
-        _planes = _history.Pop();
-    }
+    public void UndoLastMove() => _planes = _history.Count > 0 ? _history.Pop() : _planes;
 
     private void SaveState() => _history.Push(_planes);
 
