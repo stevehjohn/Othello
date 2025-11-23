@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.ComTypes;
 using Othello.Engine.Infrastructure;
 using Othello.Engine.Kernel;
 
@@ -5,8 +6,17 @@ namespace Othello.Engine;
 
 public class Core
 {
-    private readonly Board _board = new();
+    private readonly Board _board;
 
+    private readonly BoardAnalyser _analyser;
+
+    public Core()
+    {
+        _board = new Board();
+        
+        _analyser = new BoardAnalyser(_board);
+    }
+    
     public void StartGame()
     {
         _board.InitialiseNewGame();
