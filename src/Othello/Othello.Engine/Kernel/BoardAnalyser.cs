@@ -54,7 +54,6 @@ public class BoardAnalyser
     
     private ulong Shift(ulong bits, int dir)
     {
-    
         return dir switch
         {
             -9 => (bits & NOT_A_FILE) >> 9,
