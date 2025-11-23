@@ -1,3 +1,5 @@
+using Othello.Engine.Infrastructure;
+
 namespace Othello.Engine.Kernel;
 
 public class BoardAnalyser
@@ -7,5 +9,10 @@ public class BoardAnalyser
     public BoardAnalyser(Board board)
     {
         _board = board;
+    }
+
+    public ulong GetLegalMoves(Colour colour)
+    {
+        return 0;
     }
 }
