@@ -18,4 +18,8 @@
         <Using Include="Xunit"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Othello.Engine\Othello.Engine.csproj" />
+    </ItemGroup>
+
 </Project>

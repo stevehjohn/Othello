@@ -35,7 +35,7 @@ public class BoardAnalyser
         return legalMoves;
     }
     
-    private ulong GetLegalMovesForDirection(ulong friendly, ulong opponent, ulong empty, int direction)
+    private static ulong GetLegalMovesForDirection(ulong friendly, ulong opponent, ulong empty, int direction)
     {
         var candidates = Shift(friendly, direction) & opponent;
     
