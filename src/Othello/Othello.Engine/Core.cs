@@ -14,28 +14,7 @@ public class Core
 
     public bool MakeMove(Colour colour, int cell)
     {
-        var flipped = _board.FlipPieces(colour, cell);
-
-        if (flipped == 0)
-        {
-            return false;
-        }
-
-        switch (colour)
-        {
-            case Colour.Black:
-                _board.Black[cell] = true;
-                
-                break;
-            
-            case Colour.White:
-            default:
-                _board.White[cell] = true;
-                
-                break;
-        }
-
-        return true;
+        return _board.MakeMove(colour, cell);
     }
 
     public int GetBestMove(Colour colour)
