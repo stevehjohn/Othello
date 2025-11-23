@@ -18,8 +18,15 @@ public class Core
         _board.Black[36] = true;
     }
 
-    public void MakeMove(Colour colour, int cell)
+    public bool MakeMove(Colour colour, int cell)
     {
+        var flipped = FlipPieces(colour, cell);
+
+        if (flipped == 0)
+        {
+            return false;
+        }
+
         switch (colour)
         {
             case Colour.Black:
@@ -33,9 +40,16 @@ public class Core
                 
                 break;
         }
+
+        return true;
     }
 
     public int GetBestMove(Colour colour)
+    {
+        throw new NotImplementedException();
+    }
+
+    private int FlipPieces(Colour colour, int newPiece)
     {
         throw new NotImplementedException();
     }
