@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices.ComTypes;
 using Othello.Engine.Infrastructure;
 using Othello.Engine.Kernel;
 
