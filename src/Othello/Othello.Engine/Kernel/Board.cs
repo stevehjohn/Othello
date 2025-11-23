@@ -21,13 +21,8 @@ public class Board
 
     public void InitialiseNewGame()
     {
-        for (var i = 0; i < Constants.Cells; i++)
-        {
-            _planes.Black[i] = false;
-
-            _planes.White[i] = false;
-        }
-
+        Clear();
+        
         _planes.Black[27] = true;
 
         _planes.White[28] = true;
@@ -35,6 +30,15 @@ public class Board
         _planes.White[35] = true;
 
         _planes.Black[36] = true;
+    }
+
+    public void InitialiseFromBoardState(ulong blackPieces, ulong whitePieces)
+    {
+        Clear();
+
+        _planes.Black.Pieces = blackPieces;
+
+        _planes.White.Pieces = whitePieces;
     }
 
     public bool MakeMove(Colour colour, int cell)
@@ -77,5 +81,15 @@ public class Board
         }
 
         throw new NotImplementedException();
+    }
+
+    private void Clear()
+    {
+        for (var i = 0; i < Constants.Cells; i++)
+        {
+            _planes.Black[i] = false;
+
+            _planes.White[i] = false;
+        }
     }
 }
