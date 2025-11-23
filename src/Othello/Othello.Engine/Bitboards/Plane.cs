@@ -4,23 +4,23 @@ namespace Othello.Engine.Bitboards;
 
 public struct Plane
 {
-    private ulong _pieces;
+    public ulong Pieces;
     
     public bool this[int cell]
     {
-        get => (_pieces & 1ul << cell) > 0;
+        get => (Pieces & 1ul << cell) > 0;
         set
         {
             if (value)
             {
-                _pieces |= 1ul << cell;
+                Pieces |= 1ul << cell;
             }
             else
             {
-                _pieces &= ~(1ul << cell);
+                Pieces &= ~(1ul << cell);
             }
         }
     }
 
-    public int PieceCount => BitOperations.PopCount(_pieces);
+    public int PieceCount => BitOperations.PopCount(Pieces);
 }
