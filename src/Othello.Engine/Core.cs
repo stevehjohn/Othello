@@ -26,10 +26,8 @@ public class Core
         return _board.MakeMove(colour, cell);
     }
 
-    public int GetBestMove(Colour colour)
+    public ulong GetBestMove(Colour colour)
     {
-        var moves = _analyser.GetLegalMoves(colour);
-
-        return 0;
+        return _analyser.GetLegalMoves(colour);
     }
 }
