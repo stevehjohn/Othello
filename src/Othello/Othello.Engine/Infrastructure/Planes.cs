@@ -2,7 +2,9 @@ namespace Othello.Engine.Infrastructure;
 
 public struct Planes
 {
-    private Plane _black;
+    public Planes() { }
 
-    private Plane _white;
+    public Plane Black { get; private set; } = new();
+
+    public Plane White { get; private set; } = new();
 }
