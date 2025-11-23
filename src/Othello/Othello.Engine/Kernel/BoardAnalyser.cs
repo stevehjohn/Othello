@@ -1,15 +1,10 @@
+using Othello.Engine.Extensions;
 using Othello.Engine.Infrastructure;
 
 namespace Othello.Engine.Kernel;
 
 public class BoardAnalyser
 {
-    private static readonly int[] Directions = { -9, -8, -7, -1, 1, 7, 8, 9 };
-    
-    private const ulong ClearEastMask = 0xFEFEFEFEFEFEFEFEul;
-    
-    private const ulong ClearWestMask = 0x7F7F7F7F7F7F7F7Ful;
-    
     private readonly Board _board;
 
     public BoardAnalyser(Board board)
@@ -27,9 +22,9 @@ public class BoardAnalyser
 
         var legalMoves = 0ul;
 
-        foreach (var direction in Directions)
+        for (var i = 0; i < Constants.Directions.Length; i++)
         {
-            legalMoves |= GetLegalMovesForDirection(friendly, opponent, empty, direction);
+            legalMoves |= GetLegalMovesForDirection(friendly, opponent, empty, i);
         }
 
         return legalMoves;
@@ -37,34 +32,18 @@ public class BoardAnalyser
     
     private static ulong GetLegalMovesForDirection(ulong friendly, ulong opponent, ulong empty, int direction)
     {
-        var candidates = Shift(friendly, direction) & opponent;
+        var candidates = friendly.Shift(direction) & opponent;
     
-        candidates |= Shift(candidates, direction) & opponent;
+        candidates |= candidates.Shift(direction) & opponent;
         
-        candidates |= Shift(candidates, direction) & opponent;
+        candidates |= candidates.Shift(direction) & opponent;
         
-        candidates |= Shift(candidates, direction) & opponent;
+        candidates |= candidates.Shift(direction) & opponent;
         
-        candidates |= Shift(candidates, direction) & opponent;
+        candidates |= candidates.Shift(direction) & opponent;
         
-        candidates |= Shift(candidates, direction) & opponent;
+        candidates |= candidates.Shift(direction) & opponent;
     
-        return Shift(candidates, direction) & empty;
-    }
-    
-    private static ulong Shift(ulong bits, int dir)
-    {
-        return dir switch
-        {
-            -9 => (bits & ClearEastMask) >> 9,
-            -8 => bits >> 8,
-            -7 => (bits & ClearWestMask) >> 7,
-            -1 => (bits & ClearEastMask) >> 1,
-            1  => (bits & ClearWestMask) << 1,
-            7  => (bits & ClearEastMask) << 7,
-            8  => bits << 8,
-            9  => (bits & ClearWestMask) << 9,
-            _ => 0
-        };
+        return candidates.Shift(direction) & empty;
     }
 }

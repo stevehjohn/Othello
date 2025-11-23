@@ -1,5 +1,8 @@
+using System.Numerics;
 using Othello.Engine.Bitboards;
+using Othello.Engine.Extensions;
 using Othello.Engine.Infrastructure;
+using Plane = Othello.Engine.Bitboards.Plane;
 
 namespace Othello.Engine.Kernel;
 
@@ -80,11 +83,11 @@ public class Board
             return 0;
         }
 
-        // TODO: The flip.
+        // TODO: Flip.
         
         return 1;
     }
-
+    
     private void Clear()
     {
         for (var i = 0; i < Constants.Cells; i++)
