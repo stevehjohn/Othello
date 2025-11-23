@@ -1,6 +1,6 @@
 namespace Othello.Engine.Bitboards;
 
-public class Plane
+public struct Plane
 {
     private ulong _pieces;
     

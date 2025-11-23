@@ -1,12 +1,12 @@
 namespace Othello.Engine.Bitboards;
 
-public readonly struct Planes
+public struct Planes
 {
     public Planes() { }
 
-    public Plane Black { get; } = new();
+    public Plane Black;
 
-    public Plane White { get; } = new();
+    public Plane White;
 
     public bool this[int cell] => Black[cell] | White[cell];
 }

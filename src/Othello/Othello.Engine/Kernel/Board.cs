@@ -13,7 +13,7 @@ public class Board
 
     public bool this[int cell] => _planes[cell];
 
-    private Stack<Planes> _history = new();
+    private readonly Stack<Planes> _history = new();
 
     public void InitialiseNewGame()
     {
