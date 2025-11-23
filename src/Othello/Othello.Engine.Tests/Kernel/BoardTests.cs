@@ -18,10 +18,10 @@ public class BoardTests
 
         board.MakeMove(Colour.White, 37);
         
-        Assert.Equal(0b0000000000000000000000000001000000001000000000000000000000000000ul, board.Black.Pieces);
+        Assert.Equal(0b0000000000000000000000000000000000001000000000000000000000000000ul, board.Black.Pieces);
         
         // TODO: Modify after flip implementation
-        Assert.Equal(0b0000000000000000000000000010100000010000000000000000000000000000ul, board.White.Pieces);
+        Assert.Equal(0b0000000000000000000000000011100000010000000000000000000000000000ul, board.White.Pieces);
         
         board.UndoLastMove();
         

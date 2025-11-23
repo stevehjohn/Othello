@@ -83,9 +83,67 @@ public class Board
             return 0;
         }
 
-        // TODO: Flip.
+        var friendly = colour == Colour.Black ? _planes.Black.Pieces : _planes.White.Pieces;
+        var opponent = colour == Colour.Black ? _planes.White.Pieces : _planes.Black.Pieces;
+    
+        ulong allFlips = 0;
+    
+        for (var i = 0; i < Constants.Directions.Length; i++)
+        {
+            allFlips |= GetFlipsInDirection(cell, i, friendly, opponent);
+        }
+
+        if (allFlips == 0)
+        {
+            return 0;
+        }
+    
+        if (colour == Colour.Black)
+        {
+            _planes.Black.Pieces |= allFlips;
+            
+            _planes.White.Pieces &= ~allFlips;
+        }
+        else
+        {
+            _planes.White.Pieces |= allFlips;
+            
+            _planes.Black.Pieces &= ~allFlips;
+        }
+    
+        return BitOperations.PopCount(allFlips);
+    }
+    
+    private static ulong GetFlipsInDirection(int cell, int direction, ulong friendly, ulong opponent)
+    {
+        var flips = 0ul;
         
-        return 1;
+        for (var i = 0; i < 6; i++)
+        {
+            var shifted = (1ul << cell).Shift(direction);
+            
+            if (shifted == 0)
+            {
+                return 0;
+            } 
+        
+            cell = BitOperations.TrailingZeroCount(shifted);
+        
+            if ((opponent & shifted) != 0)
+            {
+                flips |= shifted;
+            }
+            else if ((friendly & shifted) != 0 && flips != 0)
+            {
+                return flips;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+    
+        return 0;
     }
     
     private void Clear()
