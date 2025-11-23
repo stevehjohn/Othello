@@ -86,32 +86,32 @@ public class Board
         var friendly = colour == Colour.Black ? _planes.Black.Pieces : _planes.White.Pieces;
         var opponent = colour == Colour.Black ? _planes.White.Pieces : _planes.Black.Pieces;
     
-        ulong allFlips = 0;
+        var flips = 0ul;
     
         for (var i = 0; i < Constants.Directions.Length; i++)
         {
-            allFlips |= GetFlipsInDirection(cell, i, friendly, opponent);
+            flips |= GetFlipsInDirection(cell, i, friendly, opponent);
         }
 
-        if (allFlips == 0)
+        if (flips == 0)
         {
             return 0;
         }
     
         if (colour == Colour.Black)
         {
-            _planes.Black.Pieces |= allFlips;
+            _planes.Black.Pieces |= flips;
             
-            _planes.White.Pieces &= ~allFlips;
+            _planes.White.Pieces &= ~flips;
         }
         else
         {
-            _planes.White.Pieces |= allFlips;
+            _planes.White.Pieces |= flips;
             
-            _planes.Black.Pieces &= ~allFlips;
+            _planes.Black.Pieces &= ~flips;
         }
     
-        return BitOperations.PopCount(allFlips);
+        return BitOperations.PopCount(flips);
     }
     
     private static ulong GetFlipsInDirection(int cell, int direction, ulong friendly, ulong opponent)
