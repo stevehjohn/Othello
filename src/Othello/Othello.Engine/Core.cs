@@ -18,7 +18,7 @@ public class Core
         _board.Black[36] = true;
     }
 
-    public void PlacePiece(Colour colour, int cell)
+    public void MakeMove(Colour colour, int cell)
     {
         switch (colour)
         {
@@ -33,5 +33,10 @@ public class Core
                 
                 break;
         }
+    }
+
+    public int GetBestMove(Colour colour)
+    {
+        throw new NotImplementedException();
     }
 }
