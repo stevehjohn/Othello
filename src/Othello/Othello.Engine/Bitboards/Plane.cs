@@ -1,4 +1,4 @@
-namespace Othello.Engine.Infrastructure;
+namespace Othello.Engine.Bitboards;
 
 public class Plane
 {
