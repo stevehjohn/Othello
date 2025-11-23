@@ -6,9 +6,9 @@ public class BoardAnalyser
 {
     private static readonly int[] Directions = { -9, -8, -7, -1, 1, 7, 8, 9 };
     
-    private const ulong ClearWestMask = 0xFEFEFEFEFEFEFEFEUL;
+    private const ulong ClearEastMask = 0xFEFEFEFEFEFEFEFEul;
     
-    private const ulong ClearEastMask = 0x7F7F7F7F7F7F7F7FUL;
+    private const ulong ClearWestMask = 0x7F7F7F7F7F7F7F7Ful;
     
     private readonly Board _board;
 
@@ -56,14 +56,14 @@ public class BoardAnalyser
     {
         return dir switch
         {
-            -9 => (bits & ClearWestMask) >> 9,
+            -9 => (bits & ClearEastMask) >> 9,
             -8 => bits >> 8,
-            -7 => (bits & ClearEastMask) >> 7,
-            -1 => (bits & ClearWestMask) >> 1,
-            1  => (bits & ClearEastMask) << 1,
-            7  => (bits & ClearWestMask) << 7,
+            -7 => (bits & ClearWestMask) >> 7,
+            -1 => (bits & ClearEastMask) >> 1,
+            1  => (bits & ClearWestMask) << 1,
+            7  => (bits & ClearEastMask) << 7,
             8  => bits << 8,
-            9  => (bits & ClearEastMask) << 9,
+            9  => (bits & ClearWestMask) << 9,
             _ => 0
         };
     }
