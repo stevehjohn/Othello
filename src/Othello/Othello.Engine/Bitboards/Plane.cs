@@ -3,7 +3,7 @@ namespace Othello.Engine.Bitboards;
 public class Plane
 {
     private ulong _pieces;
-
+    
     public bool this[int cell]
     {
         get => (_pieces & 1ul << (cell - 1)) > 0;
