@@ -80,7 +80,9 @@ public class Board
             return 0;
         }
 
-        throw new NotImplementedException();
+        // TODO: The flip.
+        
+        return 1;
     }
 
     private void Clear()
