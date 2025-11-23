@@ -75,10 +75,7 @@ public class Board
         _planes = _history.Pop();
     }
 
-    private void SaveState()
-    {
-        _history.Push(_planes);
-    }
+    private void SaveState() => _history.Push(_planes);
 
     private int FlipPieces(Colour colour, int cell)
     {
