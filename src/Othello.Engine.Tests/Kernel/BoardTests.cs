@@ -29,4 +29,24 @@ public class BoardTests
         
         Assert.Equal(0b0000000000000000000000000000100000010000000000000000000000000000ul, board.White.Pieces);
     }
+
+    [Fact]
+    public void BlackScoreReturnsCorrectValue()
+    {
+        var board = new Board();
+        
+        board.InitialiseNewGame();
+        
+        Assert.Equal(2, board.BlackScore);
+    }
+
+    [Fact]
+    public void WhiteScoreReturnsCorrectValue()
+    {
+        var board = new Board();
+        
+        board.InitialiseNewGame();
+        
+        Assert.Equal(2, board.WhiteScore);
+    }
 }
