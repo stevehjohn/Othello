@@ -1,3 +1,5 @@
+using System.Numerics;
+
 namespace Othello.Engine.Bitboards;
 
 public struct Plane
@@ -19,4 +21,6 @@ public struct Plane
             }
         }
     }
+
+    public int PieceCount => BitOperations.PopCount(_pieces);
 }

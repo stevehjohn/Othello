@@ -11,6 +11,10 @@ public class Board
 
     public Plane White => _planes.White;
 
+    public int BlackScore => Black.PieceCount;
+
+    public int WhiteScore => White.PieceCount;
+
     public bool this[int cell] => _planes[cell];
 
     private readonly Stack<Planes> _history = new();
