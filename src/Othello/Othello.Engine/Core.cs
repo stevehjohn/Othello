@@ -28,6 +28,8 @@ public class Core
 
     public int GetBestMove(Colour colour)
     {
-        throw new NotImplementedException();
+        var moves = _analyser.GetLegalMoves(colour);
+
+        return 0;
     }
 }
