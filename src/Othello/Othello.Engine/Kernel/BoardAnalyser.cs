@@ -4,11 +4,11 @@ namespace Othello.Engine.Kernel;
 
 public class BoardAnalyser
 {
-    private static readonly int[] _directions = { -9, -8, -7, -1, 1, 7, 8, 9 };
+    private static readonly int[] Directions = { -9, -8, -7, -1, 1, 7, 8, 9 };
     
-    private const ulong NOT_A_FILE = 0xFEFEFEFEFEFEFEFEUL;
+    private const ulong ClearWestMask = 0xFEFEFEFEFEFEFEFEUL;
     
-    private const ulong NOT_H_FILE = 0x7F7F7F7F7F7F7F7FUL;
+    private const ulong ClearEastMask = 0x7F7F7F7F7F7F7F7FUL;
     
     private readonly Board _board;
 
@@ -27,7 +27,7 @@ public class BoardAnalyser
 
         var legalMoves = 0ul;
 
-        foreach (var direction in _directions)
+        foreach (var direction in Directions)
         {
             legalMoves |= GetLegalMovesForDirection(friendly, opponent, empty, direction);
         }
@@ -52,18 +52,18 @@ public class BoardAnalyser
         return Shift(candidates, direction) & empty;
     }
     
-    private ulong Shift(ulong bits, int dir)
+    private static ulong Shift(ulong bits, int dir)
     {
         return dir switch
         {
-            -9 => (bits & NOT_A_FILE) >> 9,
+            -9 => (bits & ClearWestMask) >> 9,
             -8 => bits >> 8,
-            -7 => (bits & NOT_H_FILE) >> 7,
-            -1 => (bits & NOT_A_FILE) >> 1,
-            1  => (bits & NOT_H_FILE) << 1,
-            7  => (bits & NOT_A_FILE) << 7,
+            -7 => (bits & ClearEastMask) >> 7,
+            -1 => (bits & ClearWestMask) >> 1,
+            1  => (bits & ClearEastMask) << 1,
+            7  => (bits & ClearWestMask) << 7,
             8  => bits << 8,
-            9  => (bits & NOT_H_FILE) << 9,
+            9  => (bits & ClearEastMask) << 9,
             _ => 0
         };
     }
