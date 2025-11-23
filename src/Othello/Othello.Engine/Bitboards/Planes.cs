@@ -1,4 +1,6 @@
-namespace Othello.Engine.Infrastructure;
+using Othello.Engine.Infrastructure;
+
+namespace Othello.Engine.Bitboards;
 
 public readonly struct Planes
 {

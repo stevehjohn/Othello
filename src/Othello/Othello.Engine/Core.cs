@@ -1,3 +1,4 @@
+using Othello.Engine.Bitboards;
 using Othello.Engine.Infrastructure;
 
 namespace Othello.Engine;
@@ -15,5 +16,22 @@ public class Core
         _board.White[35] = true;
 
         _board.Black[36] = true;
+    }
+
+    public void PlacePiece(Colour colour, int cell)
+    {
+        switch (colour)
+        {
+            case Colour.Black:
+                _board.Black[cell] = true;
+                
+                break;
+            
+            case Colour.White:
+            default:
+                _board.White[cell] = true;
+                
+                break;
+        }
     }
 }
