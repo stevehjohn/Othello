@@ -30,13 +30,27 @@ public class Core
 
     public (int Score, int Cell) GetBestMove(Colour colour, int depth = 5)
     {
-        var moves = _analyser.GetLegalMoves(colour);
-
-        if (moves == 0 || depth == 0)
+        if (depth == 0)
         {
             return (EvaluateBoard(colour), -1);
         }
         
+        var moves = _analyser.GetLegalMoves(colour);
+
+        if (moves == 0)
+        {
+            var opponentMoves = _analyser.GetLegalMoves(colour.Invert());
+
+            if (opponentMoves == 0)
+            {
+                return (EvaluateBoard(colour), -1);
+            }
+
+            var result = GetBestMove(colour.Invert(), depth - 1);
+
+            return (-result.Score, -1);
+        }
+
         var bestScore = int.MinValue + 1;
 
         var bestMove = -1;
