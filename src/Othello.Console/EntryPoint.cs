@@ -11,6 +11,8 @@ public static class EntryPoint
 {
     public static void Main()
     {
+        CursorVisible = false;
+        
         while (! KeyAvailable)
         {
             var core = new Core();
@@ -37,7 +39,7 @@ public static class EntryPoint
 
                 stopwatch.Restart();
 
-                var move = core.GetBestMove(player, 13);
+                var move = core.GetBestMove(player, 9);
 
                 stopwatch.Stop();
 
@@ -69,5 +71,7 @@ public static class EntryPoint
 
             Thread.Sleep(1_000);
         }
+
+        CursorVisible = true;
     }
 }
