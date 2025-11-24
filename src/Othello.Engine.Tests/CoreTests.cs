@@ -29,7 +29,7 @@ public class CoreTests
 
         var stopwatch = new Stopwatch();
         
-        while (passCount < 2)
+        while (passCount < 2 && ! core.Board.IsFull)
         {
             _outputHelper.WriteLine($"\nPly {ply}:\n");
             

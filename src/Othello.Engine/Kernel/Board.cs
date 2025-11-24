@@ -19,6 +19,8 @@ public class Board
 
     public int WhiteScore => White.PieceCount;
 
+    public bool IsFull => BlackScore + WhiteScore == Constants.Cells;
+
     public Plane this[Colour colour] => colour == Colour.Black ? _planes.Black : _planes.White;
 
     private readonly Stack<Planes> _history = new();
