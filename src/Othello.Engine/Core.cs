@@ -1,3 +1,4 @@
+using System.Numerics;
 using Othello.Engine.Infrastructure;
 using Othello.Engine.Kernel;
 
@@ -28,6 +29,35 @@ public class Core
 
     public ulong GetBestMove(Colour colour)
     {
-        return _analyser.GetLegalMoves(colour);
+        var moves = _analyser.GetLegalMoves(colour);
+
+        var bestScore = 0;
+
+        var bestMove = 0ul;
+        
+        while (moves > 0)
+        {
+            var cell = BitOperations.TrailingZeroCount(moves);
+
+            var bit = 1ul << cell;
+
+            moves ^= bit;
+
+            var score = ScoreMove(colour, cell);
+
+            if (score > bestScore)
+            {
+                bestScore = score;
+
+                bestMove = bit;
+            }
+        }
+
+        return bestMove;
+    }
+
+    private int ScoreMove(Colour colour, int cell)
+    {
+        return 0;
     }
 }
