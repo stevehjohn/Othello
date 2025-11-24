@@ -93,9 +93,9 @@ public class Core
 
         var opponent = _board[colour.Invert()];
 
-        var mask = player.Pieces & XSquareMask;
-
         var score = 0;
+
+        var mask = player.Pieces & XSquareMask;
 
         score -= BitOperations.PopCount(mask);
 
