@@ -55,6 +55,7 @@ public class BoardTests
     }
 
     [Theory]
+    [InlineData(27, false)]
     [InlineData(29, true)]
     [InlineData(30, false)]
     public void BoardDetectsMoveValidity(int cell, bool isValid)

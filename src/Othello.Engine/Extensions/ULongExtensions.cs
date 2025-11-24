@@ -21,8 +21,7 @@ public static class ULongExtensions
                 1  => (value & ClearWestMask) << 1,
                 7  => (value & ClearEastMask) << 7,
                 8  => value << 8,
-                9  => (value & ClearWestMask) << 9,
-                _ => 0
+                _  => (value & ClearWestMask) << 9
             };
         }
     }
