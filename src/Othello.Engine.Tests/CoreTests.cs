@@ -1,4 +1,5 @@
-﻿using Othello.Engine.Extensions;
+﻿using System.Diagnostics;
+using Othello.Engine.Extensions;
 using Othello.Engine.Infrastructure;
 using Xunit.Abstractions;
 
@@ -25,14 +26,22 @@ public class CoreTests
         var player = Colour.White;
 
         var passCount = 0;
+
+        var stopwatch = new Stopwatch();
         
         while (passCount < 2)
         {
             _outputHelper.WriteLine($"\nPly {ply}:\n");
             
             _outputHelper.WriteLine(core.Board.ToString());
+            
+            stopwatch.Start();
 
             var move = core.GetBestMove(player);
+
+            stopwatch.Stop();
+            
+            _outputHelper.WriteLine($"\nThinking time: {stopwatch.ElapsedMilliseconds:N0}ms");
 
             passCount = core.MakeMove(player, move.Cell) ? 0 : passCount + 1;
 
