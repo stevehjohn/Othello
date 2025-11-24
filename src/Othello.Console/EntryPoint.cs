@@ -60,7 +60,7 @@ public static class EntryPoint
 
             CursorTop = 1;
 
-            WriteLine($" Black: {core.Board.BlackScore}, White: {core.Board.WhiteScore}.\n");
+            WriteLine($" Game {gameCount}, Black: {core.Board.BlackScore}, White: {core.Board.WhiteScore}.\n");
 
             WriteLine($" {core.Board.ToString().Replace("\n", "\n ")}");
 
