@@ -31,7 +31,7 @@ public class CoreTests
         
         while (passCount < 2 && ! core.Board.IsFull)
         {
-            _outputHelper.WriteLine($"\nPly {ply}:\n");
+            _outputHelper.WriteLine($"\nPly {ply}, player {player}:\n");
             
             _outputHelper.WriteLine(core.Board.ToString());
             
@@ -50,6 +50,10 @@ public class CoreTests
             ply++;
         }
         
+        _outputHelper.WriteLine(string.Empty);
+                    
+        _outputHelper.WriteLine(core.Board.ToString());
+
         _outputHelper.WriteLine($"\nBlack: {core.Board.BlackScore}, White: {core.Board.WhiteScore}.\n");
 
         if (core.Board.BlackScore == core.Board.WhiteScore)
