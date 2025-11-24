@@ -35,13 +35,15 @@ public static class EntryPoint
             {
                 CursorTop = 1;
 
-                WriteLine($" Game {gameCount}, Ply {ply}, player {player}:\n");
+                WriteLine($" Game {gameCount}: Ply: {ply}\n");
+                
+                WriteLine($" Player: {player}\n");
 
                 WriteLine($" {core.Board.ToString().Replace("\n", "\n ")}");
 
                 stopwatch.Restart();
 
-                var move = core.GetBestMove(player, 9);
+                var move = core.GetBestMove(player, 11);
 
                 stopwatch.Stop();
 
@@ -60,7 +62,9 @@ public static class EntryPoint
 
             CursorTop = 1;
 
-            WriteLine($" Game {gameCount}, Black: {core.Board.BlackScore}, White: {core.Board.WhiteScore}.\n");
+            WriteLine($" Game {gameCount}: Ply: {ply}\n");
+                
+            WriteLine($" Player: {player}\n");
 
             WriteLine($" {core.Board.ToString().Replace("\n", "\n ")}");
 
@@ -73,7 +77,7 @@ public static class EntryPoint
                 WriteLine($" \n {(core.Board.BlackScore > core.Board.WhiteScore ? "Black" : "White")} wins!\n");
             }
 
-            Thread.Sleep(1_000);
+            Thread.Sleep(2_000);
         }
 
         CursorVisible = true;
