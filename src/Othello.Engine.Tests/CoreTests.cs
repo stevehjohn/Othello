@@ -37,7 +37,7 @@ public class CoreTests
             
             stopwatch.Restart();
 
-            var move = core.GetBestMove(player, 11);
+            var move = core.GetBestMove(player, 9);
 
             stopwatch.Stop();
             
