@@ -24,7 +24,7 @@ public static class StringExtensions
 
                 if ((moves & (1ul << cell)) != 0)
                 {
-                    builder.Append('X');
+                    builder.Append('+');
                 }
                 else
                 {
