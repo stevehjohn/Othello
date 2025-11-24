@@ -32,25 +32,27 @@ public class Core
         return _board.MakeMove(colour, cell);
     }
 
-    public (int Score, int Cell) GetBestMove(Colour colour, int depth = 5)
+    public (int Score, int Cell) GetBestMove(Colour player, int depth = 5)
     {
+        var playerMoves = _analyser.GetLegalMoves(player);
+
         if (depth == 0)
         {
-            return (EvaluateBoard(colour), -1);
+            var opponentMoves = _analyser.GetLegalMoves(player.Invert());
+
+            return (EvaluateBoard(player, playerMoves, opponentMoves), -1);
         }
         
-        var moves = _analyser.GetLegalMoves(colour);
-
-        if (moves == 0)
+        if (playerMoves == 0)
         {
-            var opponentMoves = _analyser.GetLegalMoves(colour.Invert());
+            var opponentMoves = _analyser.GetLegalMoves(player.Invert());
 
             if (opponentMoves == 0)
             {
-                return (EvaluateBoard(colour), -1);
+                return (EvaluateBoard(player, playerMoves, opponentMoves), -1);
             }
 
-            var result = GetBestMove(colour.Invert(), depth - 1);
+            var result = GetBestMove(player.Invert(), depth - 1);
 
             return (-result.Score, -1);
         }
@@ -59,24 +61,24 @@ public class Core
 
         var bestMove = -1;
         
-        while (moves > 0)
+        while (playerMoves > 0)
         {
-            var cell = BitOperations.TrailingZeroCount(moves);
+            var cell = BitOperations.TrailingZeroCount(playerMoves);
 
-            moves ^= 1ul << cell;
+            playerMoves ^= 1ul << cell;
 
-            if (! _board.MakeMove(colour, cell))
+            if (! _board.MakeMove(player, cell))
             {
                 continue;
             }
 
-            var result = GetBestMove(colour.Invert(), depth - 1);
+            var result = GetBestMove(player.Invert(), depth - 1);
 
             _board.UndoLastMove();
 
             var score = -result.Score;
 
-            if (score > bestScore)
+            if (score > bestScore || (score == bestScore && Random.Shared.Next(2) == 1))
             {
                 bestScore = score;
 
@@ -87,7 +89,7 @@ public class Core
         return (bestScore, bestMove);
     }
 
-    private int EvaluateBoard(Colour player)
+    private int EvaluateBoard(Colour player, ulong playerMoves, ulong opponentMoves)
     {
         var opponent = player.Invert();
         
@@ -109,9 +111,9 @@ public class Core
 
         score += delta * 80;
 
-        delta = BitOperations.PopCount(_analyser.GetLegalMoves(player));
+        delta = BitOperations.PopCount(playerMoves);
 
-        delta -= BitOperations.PopCount(_analyser.GetLegalMoves(opponent));
+        delta -= BitOperations.PopCount(opponentMoves);
 
         score += delta * 100;
         
