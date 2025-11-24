@@ -117,8 +117,15 @@ public class Core
 
         score += delta * 100;
         
-        score += playerPlane.PieceCount - opponentPlane.PieceCount;
+        score += (playerPlane.PieceCount - opponentPlane.PieceCount) * CalculateMaterialWeight();
         
         return score;
+    }
+
+    private int CalculateMaterialWeight()
+    {
+        var pieces = _board.BlackScore + _board.WhiteScore;
+
+        return (int) (pieces * 0.3_125);
     }
 }
