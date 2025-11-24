@@ -93,7 +93,7 @@ public class Core
         
         var playerPlane = _board[player];
 
-        var opponentPlane = _board[player.Invert()];
+        var opponentPlane = _board[opponent];
 
         var score = 0;
 
@@ -103,9 +103,9 @@ public class Core
 
         score += delta * 1_000;
 
-        delta = BitOperations.PopCount(opponentPlane.Pieces & CornerMask);
+        delta = BitOperations.PopCount(opponentPlane.Pieces & XSquareMask);
 
-        delta -= BitOperations.PopCount(playerPlane.Pieces & CornerMask);
+        delta -= BitOperations.PopCount(playerPlane.Pieces & XSquareMask);
 
         score += delta * 80;
 
