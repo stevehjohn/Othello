@@ -13,7 +13,7 @@ public static class EntryPoint
     {
         CursorVisible = false;
 
-        var count = 1;
+        var gameCount = 1;
         
         while (! KeyAvailable)
         {
@@ -35,7 +35,7 @@ public static class EntryPoint
             {
                 CursorTop = 1;
 
-                WriteLine($" Game {count++}, Ply {ply}, player {player}:\n");
+                WriteLine($" Game {gameCount}, Ply {ply}, player {player}:\n");
 
                 WriteLine($" {core.Board.ToString().Replace("\n", "\n ")}");
 
@@ -53,6 +53,8 @@ public static class EntryPoint
 
                 ply++;
             }
+
+            gameCount++;
 
             Clear();
 
