@@ -39,7 +39,7 @@ public class Core
         
         var bestScore = int.MinValue;
 
-        var bestMove = 0;
+        var bestMove = -1;
         
         while (moves > 0)
         {
