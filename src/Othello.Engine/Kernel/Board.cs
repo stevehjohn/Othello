@@ -173,12 +173,12 @@ public class Board
 
             if (_planes.Black[cell])
             {
-                builder.Append('·');
+                builder.Append('○');
                 
                 continue;
             }
             
-            builder.Append('·');
+            builder.Append('●');
         }
 
         return builder.ToString();
