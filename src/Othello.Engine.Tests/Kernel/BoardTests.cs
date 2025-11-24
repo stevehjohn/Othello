@@ -59,7 +59,7 @@ public class BoardTests
     [InlineData(27, false)]
     [InlineData(29, true)]
     [InlineData(30, false)]
-    public void BoardDetectsMoveValidity(int cell, bool isValid)
+    public void BoardDetectsMoveValidityFromInitialState(int cell, bool isValid)
     {
         var board = new Board();
         
@@ -68,6 +68,20 @@ public class BoardTests
         var result = board.MakeMove(Colour.White, cell);
         
         Assert.Equal(isValid, result);
+    }
+
+    [Fact]
+    public void BoardDetectsMoveValidityFromArbitraryState()
+    {
+        var board = new Board();
+        
+        board.InitialiseFromBoardState(
+            0b1111111000000000000000000000000000000000000000000000000000000000ul,
+            0b0000000000000000000000000000000000000000000000000000000000000000ul);
+
+        var result = board.MakeMove(Colour.White, 7);
+        
+        Assert.False(result);
     }
 
     [Fact]
