@@ -1,3 +1,4 @@
+using Othello.Engine.Extensions;
 using Othello.Engine.Infrastructure;
 using Othello.Engine.Kernel;
 using Xunit.Abstractions;
@@ -25,10 +26,14 @@ public class BoardAnalyserTests
         board.InitialiseNewGame();
         
         _outputHelper.WriteLine($"\n{colour} legal moves:\n");
-        
-        _outputHelper.WriteLine(board.ToString());
 
         var moves = boardAnalyser.GetLegalMoves(colour);
+
+        var boardString = board.ToString();
+
+        boardString = boardString.SuperimposeLegalMoves(moves);
+        
+        _outputHelper.WriteLine(boardString);
         
         Assert.Equal(expected, moves);
     }
