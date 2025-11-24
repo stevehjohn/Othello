@@ -55,6 +55,7 @@ public class BoardTests
     }
 
     [Theory]
+    [InlineData(0, false)]
     [InlineData(27, false)]
     [InlineData(29, true)]
     [InlineData(30, false)]
