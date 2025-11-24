@@ -24,6 +24,10 @@ public class BoardAnalyserTests
 
         board.InitialiseNewGame();
         
+        _outputHelper.WriteLine($"{colour} legal moves:");
+        
+        _outputHelper.WriteLine(string.Empty);
+        
         _outputHelper.WriteLine(board.ToString());
 
         var moves = boardAnalyser.GetLegalMoves(colour);
