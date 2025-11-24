@@ -35,9 +35,9 @@ public class CoreTests
             
             _outputHelper.WriteLine(core.Board.ToString());
             
-            stopwatch.Start();
+            stopwatch.Restart();
 
-            var move = core.GetBestMove(player);
+            var move = core.GetBestMove(player, 11);
 
             stopwatch.Stop();
             
