@@ -1,5 +1,4 @@
 using System.Text;
-using Othello.Engine.Infrastructure;
 
 namespace Othello.Engine.Extensions;
 
@@ -22,14 +21,7 @@ public static class StringExtensions
                     continue;
                 }
 
-                if ((moves & (1ul << cell)) != 0)
-                {
-                    builder.Append('+');
-                }
-                else
-                {
-                    builder.Append(board[i]);
-                }
+                builder.Append((moves & (1ul << cell)) != 0 ? '+' : board[i]);
 
                 cell++;
             }
