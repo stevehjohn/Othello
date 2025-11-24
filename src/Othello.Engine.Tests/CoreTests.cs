@@ -49,5 +49,16 @@ public class CoreTests
 
             ply++;
         }
+        
+        _outputHelper.WriteLine($"Black: {core.Board.BlackScore}, White: {core.Board.WhiteScore}.\n");
+
+        if (core.Board.BlackScore == core.Board.WhiteScore)
+        {
+            _outputHelper.WriteLine("It's a draw.");
+        }
+        else
+        {
+            _outputHelper.WriteLine($"{(core.Board.BlackScore > core.Board.WhiteScore ? "Black" : "White")} wins!");
+        }
     }
 }
