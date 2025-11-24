@@ -22,15 +22,15 @@ public class BoardAnalyserTests
         var board = new Board();
         
         var boardAnalyser = new BoardAnalyser(board);
-
+    
         board.InitialiseNewGame();
         
         _outputHelper.WriteLine($"\n{colour} legal moves:\n");
-
+    
         var moves = boardAnalyser.GetLegalMoves(colour);
-
+    
         var boardString = board.ToString();
-
+    
         boardString = boardString.SuperimposeLegalMoves(moves);
         
         _outputHelper.WriteLine(boardString);
