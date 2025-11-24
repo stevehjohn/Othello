@@ -8,7 +8,7 @@ namespace Othello.Engine;
 public class Core
 {
     private const ulong CornerMask = 0b1000000100000000000000000000000000000000000000000000000010000001ul;
-    
+
     private const ulong XSquareMask = 0b0000000001000010000000000000000000000000000000000100001000000000ul;
 
     private readonly BoardAnalyser _analyser;
@@ -18,10 +18,10 @@ public class Core
     public Core()
     {
         Board = new Board();
-        
+
         _analyser = new BoardAnalyser(Board);
     }
-    
+
     public void StartGame()
     {
         Board.InitialiseNewGame();
@@ -34,6 +34,11 @@ public class Core
 
     public (int Score, int Cell) GetBestMove(Colour player, int depth = 5)
     {
+        return GetBestMove(player, depth, int.MinValue, int.MaxValue);
+    }
+
+    private (int Score, int Cell) GetBestMove(Colour player, int depth, int alpha, int beta)
+    {
         var playerMoves = _analyser.GetLegalMoves(player);
 
         if (depth == 0)
@@ -42,7 +47,7 @@ public class Core
 
             return (EvaluateBoard(player, playerMoves, opponentMoves), -1);
         }
-        
+
         if (playerMoves == 0)
         {
             var opponentMoves = _analyser.GetLegalMoves(player.Invert());
@@ -60,7 +65,7 @@ public class Core
         var bestScore = int.MinValue + 1;
 
         var bestMove = -1;
-        
+
         while (playerMoves > 0)
         {
             var cell = BitOperations.TrailingZeroCount(playerMoves);
@@ -72,7 +77,7 @@ public class Core
                 continue;
             }
 
-            var result = GetBestMove(player.Invert(), depth - 1);
+            var result = GetBestMove(player.Invert(), depth - 1, -alpha, -beta);
 
             Board.UndoLastMove();
 
@@ -83,6 +88,16 @@ public class Core
                 bestScore = score;
 
                 bestMove = cell;
+                
+                if (score > alpha)
+                {
+                    alpha = score;
+                }
+
+                if (alpha >= beta)
+                {
+                    break;
+                }
             }
         }
 
@@ -92,7 +107,7 @@ public class Core
     private int EvaluateBoard(Colour player, ulong playerMoves, ulong opponentMoves)
     {
         var opponent = player.Invert();
-        
+
         var playerPlane = Board[player];
 
         var opponentPlane = Board[opponent];
@@ -116,9 +131,9 @@ public class Core
         delta -= BitOperations.PopCount(opponentMoves);
 
         score += delta * 100;
-        
+
         score += (playerPlane.PieceCount - opponentPlane.PieceCount) * CalculateMaterialWeight();
-        
+
         return score;
     }
 
