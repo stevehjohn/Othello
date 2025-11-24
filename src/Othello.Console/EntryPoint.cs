@@ -29,7 +29,7 @@ public static class EntryPoint
         {
             CursorTop = 1;
             
-            WriteLine($"\nPly {ply}, player {player}:\n");
+            WriteLine($"Ply {ply}, player {player}:\n");
             
             WriteLine(core.Board.ToString());
             
@@ -52,17 +52,17 @@ public static class EntryPoint
 
         CursorTop = 1;
         
-        WriteLine($"\nBlack: {core.Board.BlackScore}, White: {core.Board.WhiteScore}.\n");
+        WriteLine($"Black: {core.Board.BlackScore}, White: {core.Board.WhiteScore}.\n");
 
         WriteLine(core.Board.ToString());
 
         if (core.Board.BlackScore == core.Board.WhiteScore)
         {
-            WriteLine("\nIt's a draw.");
+            WriteLine("\nIt's a draw.\n");
         }
         else
         {
-            WriteLine($"\n{(core.Board.BlackScore > core.Board.WhiteScore ? "Black" : "White")} wins!");
+            WriteLine($"\n{(core.Board.BlackScore > core.Board.WhiteScore ? "Black" : "White")} wins!\n");
         }
     }
 }
