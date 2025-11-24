@@ -1,4 +1,5 @@
 using System.Numerics;
+using System.Text;
 using Othello.Engine.Bitboards;
 using Othello.Engine.Extensions;
 using Othello.Engine.Infrastructure;
@@ -155,5 +156,31 @@ public class Board
 
             _planes.White[i] = false;
         }
+    }
+
+    public override string ToString()
+    {
+        var builder = new StringBuilder();
+
+        for (var cell = 0; cell < Constants.Cells; cell++)
+        {
+            if (! this[cell])
+            {
+                builder.Append('·');
+                
+                continue;
+            }
+
+            if (_planes.Black[cell])
+            {
+                builder.Append('·');
+                
+                continue;
+            }
+            
+            builder.Append('·');
+        }
+
+        return builder.ToString();
     }
 }
