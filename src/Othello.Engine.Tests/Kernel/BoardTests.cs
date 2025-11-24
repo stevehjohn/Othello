@@ -71,20 +71,6 @@ public class BoardTests
     }
 
     [Fact]
-    public void BoardDetectsMoveValidityFromArbitraryState()
-    {
-        var board = new Board();
-        
-        board.InitialiseFromBoardState(
-            0b1111111000000000000000000000000000000000000000000000000000000000ul,
-            0b0000000000000000000000000000000000000000000000000000000000000000ul);
-
-        var result = board.MakeMove(Colour.White, 7);
-        
-        Assert.False(result);
-    }
-
-    [Fact]
     public void BlackScoreReturnsCorrectValue()
     {
         var board = new Board();

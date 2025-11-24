@@ -126,7 +126,7 @@ public class Board
             
             if (shifted == 0)
             {
-                return 0;
+                break;
             } 
         
             cell = BitOperations.TrailingZeroCount(shifted);
@@ -141,7 +141,7 @@ public class Board
             }
             else
             {
-                return 0;
+                break;
             }
         }
     
