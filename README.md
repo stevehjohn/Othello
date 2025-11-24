@@ -1,5 +1,11 @@
 # Othello / Reversi Game Engine
 
+## Usage
+
+No UI yet, but you can see it play itself by running the unit tests.
+
+`test.bat` or `./test.sh` depending on your platform.
+
 ## Developer Notes
 
 ### Cell Arrangement
