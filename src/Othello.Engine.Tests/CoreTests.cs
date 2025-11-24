@@ -50,7 +50,7 @@ public class CoreTests
             ply++;
         }
         
-        _outputHelper.WriteLine($"Black: {core.Board.BlackScore}, White: {core.Board.WhiteScore}.\n");
+        _outputHelper.WriteLine($"\nBlack: {core.Board.BlackScore}, White: {core.Board.WhiteScore}.\n");
 
         if (core.Board.BlackScore == core.Board.WhiteScore)
         {
