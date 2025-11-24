@@ -10,26 +10,26 @@ public class Core
     private const ulong CornerMask = 0b1000000100000000000000000000000000000000000000000000000010000001ul;
     
     private const ulong XSquareMask = 0b0000000001000010000000000000000000000000000000000100001000000000ul;
-    
-    private readonly Board _board;
 
     private readonly BoardAnalyser _analyser;
 
+    public Board Board { get; }
+
     public Core()
     {
-        _board = new Board();
+        Board = new Board();
         
-        _analyser = new BoardAnalyser(_board);
+        _analyser = new BoardAnalyser(Board);
     }
     
     public void StartGame()
     {
-        _board.InitialiseNewGame();
+        Board.InitialiseNewGame();
     }
 
     public bool MakeMove(Colour colour, int cell)
     {
-        return _board.MakeMove(colour, cell);
+        return Board.MakeMove(colour, cell);
     }
 
     public (int Score, int Cell) GetBestMove(Colour player, int depth = 5)
@@ -67,14 +67,14 @@ public class Core
 
             playerMoves ^= 1ul << cell;
 
-            if (! _board.MakeMove(player, cell))
+            if (! Board.MakeMove(player, cell))
             {
                 continue;
             }
 
             var result = GetBestMove(player.Invert(), depth - 1);
 
-            _board.UndoLastMove();
+            Board.UndoLastMove();
 
             var score = -result.Score;
 
@@ -93,9 +93,9 @@ public class Core
     {
         var opponent = player.Invert();
         
-        var playerPlane = _board[player];
+        var playerPlane = Board[player];
 
-        var opponentPlane = _board[opponent];
+        var opponentPlane = Board[opponent];
 
         var score = 0;
 
@@ -124,7 +124,7 @@ public class Core
 
     private int CalculateMaterialWeight()
     {
-        var pieces = _board.BlackScore + _board.WhiteScore;
+        var pieces = Board.BlackScore + Board.WhiteScore;
 
         return (int) (pieces * 0.3_125);
     }
