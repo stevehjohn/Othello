@@ -53,6 +53,8 @@ public class Board
 
         if (flipped == 0)
         {
+            _history.Pop();
+            
             return false;
         }
 

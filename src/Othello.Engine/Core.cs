@@ -56,11 +56,11 @@ public class Core
                 bestScore = score;
 
                 bestMove = cell;
+
+                _board.MakeMove(colour, cell);
+
+                GetBestMove(colour.Invert(), depth - 1);
             }
-
-            _board.MakeMove(colour, cell);
-
-            GetBestMove(colour.Invert(), depth - 1);
         }
 
         return bestMove;
