@@ -27,13 +27,18 @@ public class Core
         return _board.MakeMove(colour, cell);
     }
 
-    public ulong GetBestMove(Colour colour)
+    public int GetBestMove(Colour colour)
     {
         var moves = _analyser.GetLegalMoves(colour);
 
-        var bestScore = 0;
+        if (moves == 0)
+        {
+            return -1;
+        }
+        
+        var bestScore = int.MinValue;
 
-        var bestMove = 0ul;
+        var bestMove = 0;
         
         while (moves > 0)
         {
@@ -49,7 +54,7 @@ public class Core
             {
                 bestScore = score;
 
-                bestMove = bit;
+                bestMove = cell;
             }
         }
 
