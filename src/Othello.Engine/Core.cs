@@ -89,17 +89,21 @@ public class Core
 
     private int EvaluateBoard(Colour colour)
     {
-        var score = 4;
+        var score = 1_004;
 
-        var plane = _board[colour];
+        var player = _board[colour];
 
-        var mask = plane.Pieces & XSquareMask;
+        var opponent = _board[colour.Invert()];
+
+        var mask = player.Pieces & XSquareMask;
 
         score -= BitOperations.PopCount(mask);
 
-        mask = plane.Pieces & CornerMask;
+        mask = player.Pieces & CornerMask;
 
-        score += BitOperations.PopCount(mask) * 100;
+        score += BitOperations.PopCount(mask) * 10_000;
+
+        score += (player.PieceCount - opponent.PieceCount) * 10;
         
         return score;
     }
