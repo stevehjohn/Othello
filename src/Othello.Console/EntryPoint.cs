@@ -56,8 +56,6 @@ public static class EntryPoint
                 ply++;
             }
 
-            gameCount++;
-
             Clear();
 
             CursorTop = 1;
@@ -76,6 +74,8 @@ public static class EntryPoint
             {
                 WriteLine($" \n {(core.Board.BlackScore > core.Board.WhiteScore ? "Black" : "White")} wins!\n");
             }
+
+            gameCount++;
 
             Thread.Sleep(2_000);
         }
