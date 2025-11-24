@@ -29,17 +29,17 @@ public static class EntryPoint
         {
             CursorTop = 1;
             
-            WriteLine($"Ply {ply}, player {player}:\n");
+            WriteLine($" Ply {ply}, player {player}:\n");
             
-            WriteLine(core.Board.ToString());
+            WriteLine($" {core.Board.ToString().Replace("\n", "\n ")}");
             
             stopwatch.Restart();
 
-            var move = core.GetBestMove(player, 9);
+            var move = core.GetBestMove(player, 12);
 
             stopwatch.Stop();
             
-            WriteLine($"\nThinking time: {stopwatch.ElapsedMilliseconds:N0}ms");
+            WriteLine($"\n Thinking time: {stopwatch.ElapsedMilliseconds:N0}ms");
 
             passCount = core.MakeMove(player, move.Cell) ? 0 : passCount + 1;
 
@@ -52,17 +52,17 @@ public static class EntryPoint
 
         CursorTop = 1;
         
-        WriteLine($"Black: {core.Board.BlackScore}, White: {core.Board.WhiteScore}.\n");
+        WriteLine($" Black: {core.Board.BlackScore}, White: {core.Board.WhiteScore}.\n");
 
-        WriteLine(core.Board.ToString());
+        WriteLine($" {core.Board.ToString().Replace("\n", "\n ")}");
 
         if (core.Board.BlackScore == core.Board.WhiteScore)
         {
-            WriteLine("\nIt's a draw.\n");
+            WriteLine("\n It's a draw.\n");
         }
         else
         {
-            WriteLine($"\n{(core.Board.BlackScore > core.Board.WhiteScore ? "Black" : "White")} wins!\n");
+            WriteLine($" \n {(core.Board.BlackScore > core.Board.WhiteScore ? "Black" : "White")} wins!\n");
         }
     }
 }
