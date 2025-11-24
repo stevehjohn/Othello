@@ -1,4 +1,5 @@
 using System.Numerics;
+using Othello.Engine.Extensions;
 using Othello.Engine.Infrastructure;
 using Othello.Engine.Kernel;
 
@@ -33,10 +34,10 @@ public class Core
 
         if (moves == 0 || depth == 0)
         {
-            return (-1, -1);
+            return (EvaluateBoard(colour), -1);
         }
         
-        var bestScore = int.MinValue;
+        var bestScore = int.MinValue + 1;
 
         var bestMove = -1;
         
@@ -51,9 +52,11 @@ public class Core
                 continue;
             }
 
-            var score = ScoreMove(colour, cell);
-            
+            var result = GetBestMove(colour.Invert(), depth - 1);
+
             _board.UndoLastMove();
+
+            var score = -result.Score;
 
             if (score > bestScore)
             {
@@ -66,7 +69,7 @@ public class Core
         return (bestScore, bestMove);
     }
 
-    private int ScoreMove(Colour colour, int cell)
+    private int EvaluateBoard(Colour colour)
     {
         return 0;
     }
