@@ -1,5 +1,4 @@
 using System.Numerics;
-using Othello.Engine.Extensions;
 using Othello.Engine.Infrastructure;
 using Othello.Engine.Kernel;
 
@@ -28,13 +27,13 @@ public class Core
         return _board.MakeMove(colour, cell);
     }
 
-    public int GetBestMove(Colour colour, int depth = 5)
+    public (int Score, int Cell) GetBestMove(Colour colour, int depth = 5)
     {
         var moves = _analyser.GetLegalMoves(colour);
 
-        if (moves == 0)
+        if (moves == 0 || depth == 0)
         {
-            return -1;
+            return (-1, -1);
         }
         
         var bestScore = int.MinValue;
@@ -45,9 +44,7 @@ public class Core
         {
             var cell = BitOperations.TrailingZeroCount(moves);
 
-            var bit = 1ul << cell;
-
-            moves ^= bit;
+            moves ^= 1ul << cell;
 
             if (! _board.MakeMove(colour, cell))
             {
@@ -66,7 +63,7 @@ public class Core
             }
         }
 
-        return bestMove;
+        return (bestScore, bestMove);
     }
 
     private int ScoreMove(Colour colour, int cell)
