@@ -87,23 +87,35 @@ public class Core
         return (bestScore, bestMove);
     }
 
-    private int EvaluateBoard(Colour colour)
+    private int EvaluateBoard(Colour player)
     {
-        var player = _board[colour];
+        var opponent = player.Invert();
+        
+        var playerPlane = _board[player];
 
-        var opponent = _board[colour.Invert()];
+        var opponentPlane = _board[player.Invert()];
 
         var score = 0;
 
-        var mask = player.Pieces & XSquareMask;
+        var delta = BitOperations.PopCount(playerPlane.Pieces & CornerMask);
 
-        score -= BitOperations.PopCount(mask);
+        delta -= BitOperations.PopCount(opponentPlane.Pieces & CornerMask);
 
-        mask = player.Pieces & CornerMask;
+        score += delta * 1_000;
 
-        score += BitOperations.PopCount(mask) * 10_000;
+        delta = BitOperations.PopCount(opponentPlane.Pieces & CornerMask);
 
-        score += (player.PieceCount - opponent.PieceCount) * 10;
+        delta -= BitOperations.PopCount(playerPlane.Pieces & CornerMask);
+
+        score += delta * 80;
+
+        delta = BitOperations.PopCount(_analyser.GetLegalMoves(player));
+
+        delta -= BitOperations.PopCount(_analyser.GetLegalMoves(opponent));
+
+        score += delta * 100;
+        
+        score += playerPlane.PieceCount - opponentPlane.PieceCount;
         
         return score;
     }
