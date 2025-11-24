@@ -39,7 +39,7 @@ public static class EntryPoint
 
             stopwatch.Stop();
             
-            WriteLine($"\n Thinking time: {stopwatch.ElapsedMilliseconds:N0}ms");
+            WriteLine($"\n Thinking time: {stopwatch.ElapsedMilliseconds:N0}ms               ");
 
             passCount = core.MakeMove(player, move.Cell) ? 0 : passCount + 1;
 
