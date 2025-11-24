@@ -13,7 +13,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{CCC3
 	ProjectSection(SolutionItems) = preProject
 		..\test.bat = ..\test.bat
 		..\test.sh = ..\test.sh
+		..\run.sh = ..\run.sh
+		..\run.bat = ..\run.bat
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Othello.Console", "Othello.Console\Othello.Console.csproj", "{77741FF5-C4DA-443A-9FD8-15E118B84F2B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,5 +33,9 @@ Global
 		{B75FC2BE-FFB0-4119-ADE8-3191934E245C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B75FC2BE-FFB0-4119-ADE8-3191934E245C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B75FC2BE-FFB0-4119-ADE8-3191934E245C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77741FF5-C4DA-443A-9FD8-15E118B84F2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77741FF5-C4DA-443A-9FD8-15E118B84F2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77741FF5-C4DA-443A-9FD8-15E118B84F2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77741FF5-C4DA-443A-9FD8-15E118B84F2B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
