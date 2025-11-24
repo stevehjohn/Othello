@@ -27,13 +27,13 @@ public class Board
     {
         Clear();
         
-        _planes.Black[27] = true;
+        _planes.White[27] = true;
 
-        _planes.White[28] = true;
+        _planes.Black[28] = true;
 
-        _planes.White[35] = true;
+        _planes.Black[35] = true;
 
-        _planes.Black[36] = true;
+        _planes.White[36] = true;
     }
 
     public void InitialiseFromBoardState(ulong blackPieces, ulong whitePieces)
