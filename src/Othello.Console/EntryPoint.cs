@@ -23,8 +23,12 @@ public static class EntryPoint
 
         var stopwatch = new Stopwatch();
         
+        Clear();
+        
         while (passCount < 2 && ! core.Board.IsFull)
         {
+            CursorTop = 1;
+            
             WriteLine($"\nPly {ply}, player {player}:\n");
             
             WriteLine(core.Board.ToString());
@@ -44,19 +48,21 @@ public static class EntryPoint
             ply++;
         }
         
-        WriteLine(string.Empty);
-                    
-        WriteLine(core.Board.ToString());
+        Clear();
 
+        CursorTop = 1;
+        
         WriteLine($"\nBlack: {core.Board.BlackScore}, White: {core.Board.WhiteScore}.\n");
+
+        WriteLine(core.Board.ToString());
 
         if (core.Board.BlackScore == core.Board.WhiteScore)
         {
-            WriteLine("It's a draw.");
+            WriteLine("\nIt's a draw.");
         }
         else
         {
-            WriteLine($"{(core.Board.BlackScore > core.Board.WhiteScore ? "Black" : "White")} wins!");
+            WriteLine($"\n{(core.Board.BlackScore > core.Board.WhiteScore ? "Black" : "White")} wins!");
         }
     }
 }
