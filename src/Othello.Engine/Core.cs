@@ -1,4 +1,5 @@
 using System.Numerics;
+using Othello.Engine.Extensions;
 using Othello.Engine.Infrastructure;
 using Othello.Engine.Kernel;
 
@@ -27,7 +28,7 @@ public class Core
         return _board.MakeMove(colour, cell);
     }
 
-    public int GetBestMove(Colour colour)
+    public int GetBestMove(Colour colour, int depth = 5)
     {
         var moves = _analyser.GetLegalMoves(colour);
 
@@ -56,6 +57,10 @@ public class Core
 
                 bestMove = cell;
             }
+
+            _board.MakeMove(colour, cell);
+
+            GetBestMove(colour.Invert(), depth - 1);
         }
 
         return bestMove;
