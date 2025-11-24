@@ -7,6 +7,10 @@ namespace Othello.Engine;
 
 public class Core
 {
+    private const ulong CornerMask = 0b1000000100000000000000000000000000000000000000000000000010000001ul;
+    
+    private const ulong XSquareMask = 0b0000000001000010000000000000000000000000000000000100001000000000ul;
+    
     private readonly Board _board;
 
     private readonly BoardAnalyser _analyser;
@@ -85,6 +89,18 @@ public class Core
 
     private int EvaluateBoard(Colour colour)
     {
-        return 0;
+        var score = 4;
+
+        var plane = _board[colour];
+
+        var mask = plane.Pieces & XSquareMask;
+
+        score -= BitOperations.PopCount(mask);
+
+        mask = plane.Pieces & CornerMask;
+
+        score += BitOperations.PopCount(mask) * 100;
+        
+        return score;
     }
 }

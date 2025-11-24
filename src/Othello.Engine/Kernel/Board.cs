@@ -19,9 +19,11 @@ public class Board
 
     public int WhiteScore => White.PieceCount;
 
-    public bool this[int cell] => _planes[cell];
+    public Plane this[Colour colour] => colour == Colour.Black ? _planes.Black : _planes.White;
 
     private readonly Stack<Planes> _history = new();
+
+    private bool this[int cell] => _planes[cell];
 
     public void InitialiseNewGame()
     {
