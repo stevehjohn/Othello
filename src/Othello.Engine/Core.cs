@@ -49,17 +49,20 @@ public class Core
 
             moves ^= bit;
 
+            if (! _board.MakeMove(colour, cell))
+            {
+                continue;
+            }
+
             var score = ScoreMove(colour, cell);
+            
+            _board.UndoLastMove();
 
             if (score > bestScore)
             {
                 bestScore = score;
 
                 bestMove = cell;
-
-                _board.MakeMove(colour, cell);
-
-                GetBestMove(colour.Invert(), depth - 1);
             }
         }
 
