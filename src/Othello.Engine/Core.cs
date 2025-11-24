@@ -68,7 +68,7 @@ public class Core
 
         while (playerMoves > 0)
         {
-            var cell = BitOperations.TrailingZeroCount(playerMoves);
+            var cell = PickNextMove(playerMoves);
 
             playerMoves ^= 1ul << cell;
 
@@ -103,6 +103,33 @@ public class Core
 
         return (bestScore, bestMove);
     }
+    
+    private static int PickNextMove(ulong moves)
+    {
+        var corners = moves & CornerMask;
+        
+        if (corners != 0)
+        {
+            return BitOperations.TrailingZeroCount(corners);
+        }
+
+        var xSquares = moves & XSquareMask;
+        
+        if (xSquares == 0)
+        {
+            return BitOperations.TrailingZeroCount(moves);
+        }
+
+        var nonXSquares = moves & ~XSquareMask;
+        
+        if (nonXSquares != 0)
+        {
+            return BitOperations.TrailingZeroCount(nonXSquares);
+        }
+
+        return BitOperations.TrailingZeroCount(xSquares);
+    }
+
 
     private int EvaluateBoard(Colour player, ulong playerMoves, ulong opponentMoves)
     {
