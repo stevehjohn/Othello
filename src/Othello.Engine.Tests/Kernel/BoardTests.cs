@@ -54,6 +54,20 @@ public class BoardTests
         Assert.Equal(0b0000000000000000000000000000100000010000000000000000000000000000ul, board.Black.Pieces);
     }
 
+    [Theory]
+    [InlineData(29, true)]
+    [InlineData(30, false)]
+    public void BoardDetectsMoveValidity(int cell, bool isValid)
+    {
+        var board = new Board();
+        
+        board.InitialiseNewGame();
+
+        var result = board.MakeMove(Colour.White, cell);
+        
+        Assert.Equal(isValid, result);
+    }
+
     [Fact]
     public void BlackScoreReturnsCorrectValue()
     {
