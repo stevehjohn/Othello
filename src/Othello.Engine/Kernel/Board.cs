@@ -164,6 +164,11 @@ public class Board
 
         for (var cell = 0; cell < Constants.Cells; cell++)
         {
+            if (cell > 0 && cell % Constants.Rows == 0)
+            {
+                builder.AppendLine();
+            }
+
             if (! this[cell])
             {
                 builder.Append('·');
