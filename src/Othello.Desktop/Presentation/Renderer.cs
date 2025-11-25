@@ -45,7 +45,14 @@ public class Renderer : Game
         
         _board.InitialiseNewGame();
     }
-    
+
+    protected override void Initialize()
+    {
+        Window.Title = "Othello";
+        
+        base.Initialize();
+    }
+
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
