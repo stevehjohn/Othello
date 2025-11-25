@@ -16,6 +16,10 @@ public class Renderer : Game
 
     private Texture2D _board;
 
+    private Texture2D _black;
+
+    private Texture2D _white;
+
     public Renderer()
     {
         _graphics = new GraphicsDeviceManager(this)
@@ -32,6 +36,10 @@ public class Renderer : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         _board = Content.Load<Texture2D>("board");
+
+        _black = Content.Load<Texture2D>("black");
+
+        _white = Content.Load<Texture2D>("white");
         
         base.LoadContent();
     }
@@ -43,6 +51,8 @@ public class Renderer : Game
         _spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
         
         _spriteBatch.Draw(_board, new Vector2(0, 0), Color.White);
+        
+        _spriteBatch.Draw(_black, new Vector2(66, 63), Color.White);
         
         _spriteBatch.End();
         
