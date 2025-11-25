@@ -4,7 +4,9 @@
 
 No UI yet, but you can see it play itself by running the unit tests.
 
-`test.bat` or `./test.sh` depending on your platform.
+Unit tests: `test.bat` or `./test.sh` depending on your platform.
+
+Self play: `run.bat` or `./run.sh`, again, platform dependant.
 
 ## Developer Notes
 
