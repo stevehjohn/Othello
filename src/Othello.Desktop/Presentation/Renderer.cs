@@ -11,6 +11,8 @@ namespace Othello.Desktop.Presentation;
 
 public class Renderer : Game
 {
+    private readonly Core _core;
+
     private const int Width = 902;
 
     private const int Height = 894;
@@ -21,10 +23,8 @@ public class Renderer : Game
 
     private const int CellStride = 98;
 
-    private readonly Board _board;
+    private Board _board;
     
-    private readonly Core _core;
-
     // ReSharper disable once NotAccessedField.Local
     private GraphicsDeviceManager _graphics;
 
@@ -41,6 +41,10 @@ public class Renderer : Game
     private Colour _player = Colour.Black;
 
     private int _bestMove;
+
+    private int _passCount;
+
+    private double _lastActionMilliseconds;
     
     public Renderer()
     {
@@ -83,9 +87,29 @@ public class Renderer : Game
 
     protected override void Update(GameTime gameTime)
     {
+        if (gameTime.TotalGameTime.TotalMilliseconds - _lastActionMilliseconds < 200)
+        {
+            return;
+        }
+
+        _lastActionMilliseconds = gameTime.TotalGameTime.TotalMilliseconds;
+
+        if (_passCount > 1)
+        {
+            _core.StartGame();
+
+            _board = new Board(_core.Board);
+            
+            Thread.Sleep(200);
+
+            _passCount = 0;
+            
+            return;
+        }
+
         if (_moveTask != null && _moveTask.IsCompleted)
         {
-            _core.MakeMove(_player, _bestMove);
+            _passCount = _core.MakeMove(_player, _bestMove) ? 0 : _passCount + 1;
 
             _board.MakeMove(_player, _bestMove);
             
