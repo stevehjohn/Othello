@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Othello.Engine;
+using Othello.Engine.Kernel;
 
 namespace Othello.Desktop.Presentation;
 
@@ -27,7 +28,7 @@ public class Renderer : Game
 
     private Texture2D _white;
 
-    private Core _core;
+    private Board _board;
 
     public Renderer()
     {
@@ -41,9 +42,9 @@ public class Renderer : Game
 
         IsMouseVisible = true;
 
-        _core = new Core();
+        _board = new Board();
         
-        _core.StartGame();
+        _board.InitialiseNewGame();
     }
 
     protected override void Initialize()
@@ -80,12 +81,12 @@ public class Renderer : Game
             {
                 var cell = y * 8 + x;
 
-                if (! _core.Board[cell])
+                if (! _board[cell])
                 {
                     continue;
                 }
 
-                _spriteBatch.Draw(_core.Board.Black[cell] ? _black : _white, new Vector2(ArenaLeft + x * CellStride, ArenaTop + y * CellStride), Color.White);
+                _spriteBatch.Draw(_board.Black[cell] ? _black : _white, new Vector2(ArenaLeft + x * CellStride, ArenaTop + y * CellStride), Color.White);
             }
         }
 
