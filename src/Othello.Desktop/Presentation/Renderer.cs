@@ -27,7 +27,7 @@ public class Renderer : Game
 
     private Texture2D _white;
 
-    public Board _board;
+    public Board Board;
 
     public Renderer()
     {
@@ -41,9 +41,9 @@ public class Renderer : Game
 
         IsMouseVisible = true;
 
-        _board = new Board();
+        Board = new Board();
         
-        _board.InitialiseNewGame();
+        Board.InitialiseNewGame();
     }
 
     protected override void Initialize()
@@ -80,12 +80,12 @@ public class Renderer : Game
             {
                 var cell = y * 8 + x;
 
-                if (! _board[cell])
+                if (! Board[cell])
                 {
                     continue;
                 }
 
-                _spriteBatch.Draw(_board.Black[cell] ? _black : _white, new Vector2(ArenaLeft + x * CellStride, ArenaTop + y * CellStride), Color.White);
+                _spriteBatch.Draw(Board.Black[cell] ? _black : _white, new Vector2(ArenaLeft + x * CellStride, ArenaTop + y * CellStride), Color.White);
             }
         }
 
