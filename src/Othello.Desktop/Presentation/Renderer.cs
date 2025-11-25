@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Othello.Engine;
 using Othello.Engine.Kernel;
 
 namespace Othello.Desktop.Presentation;
