@@ -8,6 +8,12 @@ public class Renderer : Game
     private const int Width = 902;
 
     private const int Height = 894;
+
+    private const int ArenaTop = 63;
+
+    private const int ArenaLeft = 66;
+
+    private const int CellStride = 98;
     
     // ReSharper disable once NotAccessedField.Local
     private GraphicsDeviceManager _graphics;
@@ -29,6 +35,8 @@ public class Renderer : Game
         };
 
         Content.RootDirectory = "_Content";
+
+        IsMouseVisible = true;
     }
     
     protected override void LoadContent()
@@ -51,9 +59,12 @@ public class Renderer : Game
         _spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
         
         _spriteBatch.Draw(_board, new Vector2(0, 0), Color.White);
-        
-        _spriteBatch.Draw(_black, new Vector2(66, 63), Color.White);
-        
+
+        for (var i = 0; i < 8; i++)
+        {
+            _spriteBatch.Draw(_white, new Vector2(ArenaLeft, ArenaTop + i * CellStride), Color.White);
+        }
+
         _spriteBatch.End();
         
         base.Draw(gameTime);
