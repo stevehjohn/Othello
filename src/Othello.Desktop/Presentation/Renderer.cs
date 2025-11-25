@@ -4,4 +4,8 @@ namespace Othello.Desktop.Presentation;
 
 public class Renderer : Game
 {
+    protected override void LoadContent()
+    {
+        base.LoadContent();
+    }
 }
