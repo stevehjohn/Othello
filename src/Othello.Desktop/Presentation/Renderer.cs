@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -32,10 +33,12 @@ public class Renderer : Game
 
     private Texture2D _white;
 
-    private Task<(int Score, int Cell)> _moveTask;
+    private Task _moveTask;
 
     private Colour _player = Colour.Black;
 
+    private int _bestMove;
+    
     public Renderer()
     {
         _graphics = new GraphicsDeviceManager(this)
@@ -75,14 +78,20 @@ public class Renderer : Game
 
     protected override void Update(GameTime gameTime)
     {
+        if (_moveTask != null && _moveTask.IsCompleted)
+        {
+            _core.MakeMove(_player, _bestMove);
+            
+            _player = _player.Invert();
+
+            _moveTask = null;
+            
+            Thread.Sleep(200);
+        }
+        
         if (_moveTask == null)
         {
-            _moveTask = Task.Run(() => _core.GetBestMove(_player));
-        }
-
-        if (_moveTask.IsCompleted)
-        {
-            _player = _player.Invert();
+            _moveTask = Task.Run(() => _bestMove = _core.GetBestMove(_player, 10).Cell);
         }
 
         base.Update(gameTime);
