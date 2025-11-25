@@ -87,7 +87,9 @@ public class Renderer : Game
 
     protected override void Update(GameTime gameTime)
     {
-        if (gameTime.TotalGameTime.TotalMilliseconds - _lastActionMilliseconds < 200)
+        var delay = _passCount > 1 ? 1_000 : 200;
+        
+        if (gameTime.TotalGameTime.TotalMilliseconds - _lastActionMilliseconds < delay)
         {
             return;
         }
