@@ -100,8 +100,6 @@ public class Renderer : Game
 
             _board = new Board(_core.Board);
             
-            Thread.Sleep(200);
-
             _passCount = 0;
             
             return;
@@ -116,8 +114,6 @@ public class Renderer : Game
             _player = _player.Invert();
 
             _moveTask = null;
-            
-            Thread.Sleep(200);
         }
         
         if (_moveTask == null)
