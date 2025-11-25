@@ -66,6 +66,8 @@ public class Core
 
         var bestMove = -1;
 
+        var bestMoveCount = 0;
+
         while (playerMoves > 0)
         {
             var cell = PickNextMove(playerMoves);
@@ -83,21 +85,32 @@ public class Core
 
             var score = -result.Score;
 
-            if (score > bestScore || (score == bestScore && Random.Shared.Next(2) == 1))
+            if (score > bestScore)
             {
                 bestScore = score;
 
                 bestMove = cell;
-                
-                if (score > alpha)
-                {
-                    alpha = score;
-                }
 
-                if (alpha >= beta)
+                bestMoveCount = 1;
+            }
+            else if (score == bestScore)
+            {
+                bestMoveCount++;
+
+                if (Random.Shared.Next(bestMoveCount) == 0)
                 {
-                    break;
+                    bestMove = cell;
                 }
+            }
+
+            if (score > alpha)
+            {
+                alpha = score;
+            }
+
+            if (alpha >= beta)
+            {
+                break;
             }
         }
 
