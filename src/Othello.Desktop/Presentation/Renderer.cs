@@ -71,7 +71,7 @@ public class Renderer : Game
         {
             for (var x = 0; x < 8; x++)
             {
-                var cell = y * 9 + x;
+                var cell = y * 8 + x;
 
                 if (! _board[cell])
                 {
