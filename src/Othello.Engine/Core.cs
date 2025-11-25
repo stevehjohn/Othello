@@ -57,7 +57,7 @@ public class Core
                 return (EvaluateBoard(player, playerMoves, opponentMoves), -1);
             }
 
-            var result = GetBestMove(player.Invert(), depth - 1);
+            var result = GetBestMove(player.Invert(), depth - 1, -alpha, -beta);
 
             return (-result.Score, -1);
         }
