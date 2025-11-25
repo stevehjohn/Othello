@@ -1,1 +1,1 @@
-dotnet run -c Release --project src/Othello.Console/Othello.Console.csproj $*
+dotnet run -c Release --project src/Othello.Desktop/Othello.Desktop.csproj $*

@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{CCC3
 	ProjectSection(SolutionItems) = preProject
 		..\test.bat = ..\test.bat
 		..\test.sh = ..\test.sh
+		..\run-console.bat = ..\run-console.bat
+		..\run-console.sh = ..\run-console.sh
 		..\run.sh = ..\run.sh
 		..\run.bat = ..\run.bat
 	EndProjectSection
