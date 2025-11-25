@@ -27,6 +27,13 @@ public class Board
 
     public bool this[int cell] => _planes[cell];
 
+    public Board() { }
+    
+    public Board(Board board)
+    {
+        _planes = board._planes;
+    }
+    
     public void InitialiseNewGame()
     {
         Clear();

@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Othello.Engine;
 using Othello.Engine.Extensions;
 using Othello.Engine.Infrastructure;
+using Othello.Engine.Kernel;
 
 namespace Othello.Desktop.Presentation;
 
@@ -19,6 +20,8 @@ public class Renderer : Game
     private const int ArenaLeft = 68;
 
     private const int CellStride = 98;
+
+    private readonly Board _board;
     
     private readonly Core _core;
 
@@ -54,6 +57,8 @@ public class Renderer : Game
         _core = new Core();
         
         _core.StartGame();
+
+        _board = new Board(_core.Board);
     }
 
     protected override void Initialize()
@@ -81,6 +86,8 @@ public class Renderer : Game
         if (_moveTask != null && _moveTask.IsCompleted)
         {
             _core.MakeMove(_player, _bestMove);
+
+            _board.MakeMove(_player, _bestMove);
             
             _player = _player.Invert();
 
@@ -111,12 +118,12 @@ public class Renderer : Game
             {
                 var cell = y * 8 + x;
 
-                if (! _core.Board[cell])
+                if (! _board[cell])
                 {
                     continue;
                 }
 
-                _spriteBatch.Draw(_core.Board.Black[cell] ? _black : _white, new Vector2(ArenaLeft + x * CellStride, ArenaTop + y * CellStride), Color.White);
+                _spriteBatch.Draw(_board.Black[cell] ? _black : _white, new Vector2(ArenaLeft + x * CellStride, ArenaTop + y * CellStride), Color.White);
             }
         }
 
