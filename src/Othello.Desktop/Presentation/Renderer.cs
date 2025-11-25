@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -60,9 +61,12 @@ public class Renderer : Game
         
         _spriteBatch.Draw(_board, new Vector2(0, 0), Color.White);
 
-        for (var i = 0; i < 8; i++)
+        for (var y = 0; y < 8; y++)
         {
-            _spriteBatch.Draw(_white, new Vector2(ArenaLeft, ArenaTop + i * CellStride), Color.White);
+            for (var x = 0; x < 8; x++)
+            {
+                _spriteBatch.Draw(Random.Shared.Next(2) == 0 ? _white : _black, new Vector2(ArenaLeft + x * CellStride, ArenaTop + y * CellStride), Color.White);
+            }
         }
 
         _spriteBatch.End();
