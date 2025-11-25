@@ -1,6 +1,6 @@
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Othello.Engine.Kernel;
 
 namespace Othello.Desktop.Presentation;
 
@@ -21,11 +21,13 @@ public class Renderer : Game
 
     private SpriteBatch _spriteBatch;
 
-    private Texture2D _board;
+    private Texture2D _background;
 
     private Texture2D _black;
 
     private Texture2D _white;
+
+    public Board _board;
 
     public Renderer()
     {
@@ -38,13 +40,17 @@ public class Renderer : Game
         Content.RootDirectory = "_Content";
 
         IsMouseVisible = true;
+
+        _board = new Board();
+        
+        _board.InitialiseNewGame();
     }
     
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-        _board = Content.Load<Texture2D>("board");
+        _background = Content.Load<Texture2D>("board");
 
         _black = Content.Load<Texture2D>("black");
 
@@ -59,13 +65,20 @@ public class Renderer : Game
         
         _spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
         
-        _spriteBatch.Draw(_board, new Vector2(0, 0), Color.White);
+        _spriteBatch.Draw(_background, new Vector2(0, 0), Color.White);
 
         for (var y = 0; y < 8; y++)
         {
             for (var x = 0; x < 8; x++)
             {
-                _spriteBatch.Draw(Random.Shared.Next(2) == 0 ? _white : _black, new Vector2(ArenaLeft + x * CellStride, ArenaTop + y * CellStride), Color.White);
+                var cell = y * 9 + x;
+
+                if (! _board[cell])
+                {
+                    continue;
+                }
+
+                _spriteBatch.Draw(_board.Black[cell] ? _black : _white, new Vector2(ArenaLeft + x * CellStride, ArenaTop + y * CellStride), Color.White);
             }
         }
 

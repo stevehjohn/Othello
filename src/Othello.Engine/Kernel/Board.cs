@@ -11,6 +11,8 @@ public class Board
 {
     private Planes _planes = new();
 
+    private readonly Stack<Planes> _history = new();
+
     public Plane Black => _planes.Black;
 
     public Plane White => _planes.White;
@@ -23,9 +25,7 @@ public class Board
 
     public Plane this[Colour colour] => colour == Colour.Black ? _planes.Black : _planes.White;
 
-    private readonly Stack<Planes> _history = new();
-
-    private bool this[int cell] => _planes[cell];
+    public bool this[int cell] => _planes[cell];
 
     public void InitialiseNewGame()
     {
