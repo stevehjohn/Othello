@@ -12,7 +12,7 @@ public class Renderer : Game
 
     private const int ArenaTop = 63;
 
-    private const int ArenaLeft = 66;
+    private const int ArenaLeft = 68;
 
     private const int CellStride = 98;
     
