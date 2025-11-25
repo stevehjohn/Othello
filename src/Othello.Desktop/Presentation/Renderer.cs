@@ -1,6 +1,9 @@
+using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Othello.Engine.Kernel;
+using Othello.Engine;
+using Othello.Engine.Extensions;
+using Othello.Engine.Infrastructure;
 
 namespace Othello.Desktop.Presentation;
 
@@ -16,6 +19,8 @@ public class Renderer : Game
 
     private const int CellStride = 98;
     
+    private readonly Core _core;
+
     // ReSharper disable once NotAccessedField.Local
     private GraphicsDeviceManager _graphics;
 
@@ -27,7 +32,9 @@ public class Renderer : Game
 
     private Texture2D _white;
 
-    private Board _board;
+    private Task<(int Score, int Cell)> _moveTask;
+
+    private Colour _player = Colour.Black;
 
     public Renderer()
     {
@@ -41,9 +48,9 @@ public class Renderer : Game
 
         IsMouseVisible = true;
 
-        _board = new Board();
+        _core = new Core();
         
-        _board.InitialiseNewGame();
+        _core.StartGame();
     }
 
     protected override void Initialize()
@@ -66,6 +73,21 @@ public class Renderer : Game
         base.LoadContent();
     }
 
+    protected override void Update(GameTime gameTime)
+    {
+        if (_moveTask == null)
+        {
+            _moveTask = Task.Run(() => _core.GetBestMove(_player));
+        }
+
+        if (_moveTask.IsCompleted)
+        {
+            _player = _player.Invert();
+        }
+
+        base.Update(gameTime);
+    }
+
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.Black);
@@ -80,12 +102,12 @@ public class Renderer : Game
             {
                 var cell = y * 8 + x;
 
-                if (! _board[cell])
+                if (! _core.Board[cell])
                 {
                     continue;
                 }
 
-                _spriteBatch.Draw(_board.Black[cell] ? _black : _white, new Vector2(ArenaLeft + x * CellStride, ArenaTop + y * CellStride), Color.White);
+                _spriteBatch.Draw(_core.Board.Black[cell] ? _black : _white, new Vector2(ArenaLeft + x * CellStride, ArenaTop + y * CellStride), Color.White);
             }
         }
 
