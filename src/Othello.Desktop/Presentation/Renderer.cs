@@ -14,6 +14,8 @@ public class Renderer : Game
 
     private SpriteBatch _spriteBatch;
 
+    private Texture2D _board;
+
     public Renderer()
     {
         _graphics = new GraphicsDeviceManager(this)
@@ -29,12 +31,20 @@ public class Renderer : Game
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
+        _board = Content.Load<Texture2D>("board");
+        
         base.LoadContent();
     }
 
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.Black);
+        
+        _spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
+        
+        _spriteBatch.Draw(_board, new Vector2(0, 0), Color.White);
+        
+        _spriteBatch.End();
         
         base.Draw(gameTime);
     }
