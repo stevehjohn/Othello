@@ -15,6 +15,8 @@ public class Core
 
     public Board Board { get; }
 
+    public bool GameOver => _analyser.GetLegalMoves(Colour.Black) == 0 && _analyser.GetLegalMoves(Colour.White) == 0;
+
     public Core()
     {
         Board = new Board();
@@ -32,12 +34,12 @@ public class Core
         return Board.MakeMove(colour, cell);
     }
 
-    public (int Score, int Cell, bool GameOver) GetBestMove(Colour player, int depth = 7)
+    public (int Score, int ) GetBestMove(Colour player, int depth = 7)
     {
         return GetBestMove(player, depth, int.MinValue, int.MaxValue);
     }
 
-    private (int Score, int Cell, bool GameOver) GetBestMove(Colour player, int depth, int alpha, int beta)
+    private (int Score, int Cell) GetBestMove(Colour player, int depth, int alpha, int beta)
     {
         var playerMoves = _analyser.GetLegalMoves(player);
 
@@ -45,7 +47,7 @@ public class Core
         {
             var opponentMoves = _analyser.GetLegalMoves(player.Invert());
 
-            return (EvaluateBoard(player, playerMoves, opponentMoves), -1, false);
+            return (EvaluateBoard(player, playerMoves, opponentMoves), -1);
         }
 
         if (playerMoves == 0)
@@ -54,12 +56,12 @@ public class Core
 
             if (opponentMoves == 0)
             {
-                return (EvaluateBoard(player, playerMoves, opponentMoves), -1, true);
+                return (EvaluateBoard(player, playerMoves, opponentMoves), -1);
             }
 
             var result = GetBestMove(player.Invert(), depth - 1, -alpha, -beta);
 
-            return (-result.Score, -1, false);
+            return (-result.Score, -1);
         }
 
         var bestScore = int.MinValue + 1;
@@ -114,7 +116,7 @@ public class Core
             }
         }
 
-        return (bestScore, bestMove, false);
+        return (bestScore, bestMove);
     }
     
     private static int PickNextMove(ulong moves)

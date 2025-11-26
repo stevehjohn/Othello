@@ -10,5 +10,5 @@ public class Coordinator
     
     private Colour _player = Colour.Black;
 
-    public Board Board { get; set; }
+    public Board Board { get; private set; }
 }
