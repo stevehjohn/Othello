@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -116,7 +117,7 @@ public class Renderer : Game
 
         if (_coordinator.GameOver)
         {
-            Window.Title = $"Othello. Game over. {_coordinator.Winner} wins!";
+            Window.Title = $"Othello. Game over. {_coordinator.Winner} wins by {Math.Abs(_coordinator.Board.BlackScore - _coordinator.Board.WhiteScore)}!";
 
             if (_gameOverTime < 0)
             {
