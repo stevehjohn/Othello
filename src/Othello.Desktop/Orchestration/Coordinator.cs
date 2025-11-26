@@ -55,7 +55,7 @@ public class Coordinator
             {
                 _moveTask = Task.Run(() => _bestMove = _core.GetBestMove(Player, _level).Cell);
             }
-            else if (! _core.HasLegalMoves(Player))
+            else if (! _core.HasLegalMoves(Player) && ! GameOver)
             {
                 Player.Invert();
             }
