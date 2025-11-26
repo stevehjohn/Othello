@@ -98,6 +98,11 @@ public class Coordinator
 
     private void MakeMove(int cell)
     {
+        if (cell == -1)
+        {
+            Player = Player.Invert();
+        }
+
         if (_core.MakeMove(Player, cell))
         {
             Board.MakeMove(Player, cell);
