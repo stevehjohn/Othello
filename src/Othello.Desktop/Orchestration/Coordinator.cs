@@ -26,6 +26,8 @@ public class Coordinator
 
     private int _level;
 
+    private Colour? _playerLegalMovesColour;
+
     private double _moveCalculatedTime = -1;
 
     public bool GameOver => _core.GameOver;
@@ -45,6 +47,8 @@ public class Coordinator
         PlayerIsCpu(Colour.White, whiteIsCpu);
 
         _level = level;
+
+        _playerLegalMovesColour = null;
         
         _core.StartGame();
 
@@ -55,6 +59,11 @@ public class Coordinator
 
     public List<int> GetPlayerLegalMoves()
     {
+        if (Player == _playerLegalMovesColour)
+        {
+            return _playerLegalMoves;
+        }
+
         _playerLegalMoves.Clear();
 
         _boardAnalyser.Board = Board;
@@ -69,6 +78,8 @@ public class Coordinator
             
             _playerLegalMoves.Add(cell);
         }
+
+        _playerLegalMovesColour = Player;
 
         return _playerLegalMoves;
     }
