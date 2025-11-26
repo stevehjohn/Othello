@@ -57,7 +57,7 @@ public class Coordinator
             }
             else if (! _core.HasLegalMoves(Player) && ! GameOver)
             {
-                Player.Invert();
+                Player = Player.Invert();
             }
         }
         else if (_moveTask.IsCompleted)
