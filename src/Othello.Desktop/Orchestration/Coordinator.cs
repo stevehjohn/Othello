@@ -101,6 +101,10 @@ public class Coordinator
         if (cell == -1)
         {
             Player = Player.Invert();
+
+            _moveTask = null;
+
+            _moveCalculatedTime = -1;
         }
 
         if (_core.MakeMove(Player, cell))
