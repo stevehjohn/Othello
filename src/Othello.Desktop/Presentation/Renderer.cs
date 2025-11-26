@@ -8,6 +8,8 @@ namespace Othello.Desktop.Presentation;
 
 public class Renderer : Game
 {
+    private const int GameOverDelay = 500;
+    
     private readonly Coordinator _coordinator = new();
     
     private const int Width = 902;
@@ -33,7 +35,7 @@ public class Renderer : Game
 
     private MouseState _previousMouseState;
 
-    private bool _gameOver;
+    private int _gameOverTime = -1;
     
     public Renderer()
     {
@@ -111,15 +113,16 @@ public class Renderer : Game
         {
             Window.Title = $"Othello. Game over. {_coordinator.Winner} wins!";
 
-            if (clicked && _gameOver)
+            if (_gameOverTime < 0)
+            {
+                _gameOverTime = gameTime.TotalGameTime.Microseconds;
+            }
+
+            if (clicked && gameTime.TotalGameTime.Microseconds - _gameOverTime > GameOverDelay)
             {
                 _coordinator.StartGame();
 
-                _gameOver = false;
-            }
-            else
-            {
-                _gameOver = true;
+                _gameOverTime = -1;
             }
         }
         else
