@@ -35,8 +35,6 @@ public class Renderer : Game
 
     private Task _moveTask;
 
-    private Colour _player = Colour.Black;
-
     private int _bestMove;
 
     private int _passCount;
