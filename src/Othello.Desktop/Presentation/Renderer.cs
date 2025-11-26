@@ -32,6 +32,8 @@ public class Renderer : Game
     private Texture2D _white;
 
     private MouseState _previousMouseState;
+
+    private bool _gameOver;
     
     public Renderer()
     {
@@ -109,9 +111,15 @@ public class Renderer : Game
         {
             Window.Title = $"Othello. Game over. {_coordinator.Winner} wins!";
 
-            if (clicked)
+            if (clicked && _gameOver)
             {
                 _coordinator.StartGame();
+
+                _gameOver = false;
+            }
+            else
+            {
+                _gameOver = true;
             }
         }
         else
