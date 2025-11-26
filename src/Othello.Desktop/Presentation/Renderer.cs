@@ -103,39 +103,6 @@ public class Renderer : Game
         _previousMouseState = mouseState;
         
         _coordinator.Update(gameTime.TotalGameTime.TotalMilliseconds);
-        
-        // var delay = _passCount > 1 ? 1_000 : 200;
-        //
-        // if (gameTime.TotalGameTime.TotalMilliseconds - _lastActionMilliseconds < delay)
-        // {
-        //     return;
-        // }
-        //
-        // _lastActionMilliseconds = gameTime.TotalGameTime.TotalMilliseconds;
-        //
-        // if (_passCount > 1)
-        // {
-        //     _core.StartGame();
-        //
-        //     _board = new Board(_core.Board);
-        //     
-        //     _passCount = 0;
-        //     
-        //     return;
-        // }
-        //
-        // if (_moveTask != null && _moveTask.IsCompleted)
-        // {
-        //     _passCount = _core.MakeMove(_player, _bestMove) ? 0 : _passCount + 1;
-        //
-        //     _board.MakeMove(_player, _bestMove);
-        //     
-        //     _player = _player.Invert();
-        //
-        //     _moveTask = null;
-        // }
-        //
-        // _moveTask ??= Task.Run(() => _bestMove = _core.GetBestMove(_player, 11).Cell);
 
         base.Update(gameTime);
     }
