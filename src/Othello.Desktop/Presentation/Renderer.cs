@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Othello.Engine;
+using Othello.Desktop.Orchestration;
 using Othello.Engine.Extensions;
 using Othello.Engine.Infrastructure;
 using Othello.Engine.Kernel;
@@ -10,8 +10,8 @@ namespace Othello.Desktop.Presentation;
 
 public class Renderer : Game
 {
-    private readonly Core _core;
-
+    private readonly Coordinator _coordinator = new();
+    
     private const int Width = 902;
 
     private const int Height = 894;
@@ -22,8 +22,6 @@ public class Renderer : Game
 
     private const int CellStride = 98;
 
-    private Board _board;
-    
     // ReSharper disable once NotAccessedField.Local
     private GraphicsDeviceManager _graphics;
 
@@ -56,12 +54,6 @@ public class Renderer : Game
         Content.RootDirectory = "_Content";
 
         IsMouseVisible = true;
-
-        _core = new Core();
-        
-        _core.StartGame();
-
-        _board = new Board(_core.Board);
     }
 
     protected override void Initialize()
@@ -136,12 +128,12 @@ public class Renderer : Game
             {
                 var cell = y * 8 + x;
 
-                if (! _board[cell])
+                if (! _coordinator.Board[cell])
                 {
                     continue;
                 }
 
-                _spriteBatch.Draw(_board.Black[cell] ? _black : _white, new Vector2(ArenaLeft + x * CellStride, ArenaTop + y * CellStride), Color.White);
+                _spriteBatch.Draw(_coordinator.Board.Black[cell] ? _black : _white, new Vector2(ArenaLeft + x * CellStride, ArenaTop + y * CellStride), Color.White);
             }
         }
 
