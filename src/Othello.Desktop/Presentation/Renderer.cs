@@ -101,6 +101,15 @@ public class Renderer : Game
         
         _coordinator.Update(gameTime.TotalGameTime.TotalMilliseconds);
 
+        if (_coordinator.GameOver)
+        {
+            Window.Title = $"Othello. Game over. {_coordinator.Winner} wins!";
+        }
+        else
+        {
+            Window.Title = $"Othello. {_coordinator.Player} {(_coordinator.Thinking ? "(thinking...) " : string.Empty)}to move.";
+        }
+
         base.Update(gameTime);
     }
 

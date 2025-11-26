@@ -9,10 +9,6 @@ namespace Othello.Desktop.Orchestration;
 public class Coordinator
 {
     private readonly Core _core = new();
-    
-    private Colour _player;
-
-    public Board Board { get; private set; }
 
     private Task _moveTask;
 
@@ -23,6 +19,16 @@ public class Coordinator
     private int _bestMove;
 
     private int _level;
+
+    public bool GameOver => _core.GameOver;
+
+    public Colour Winner => _core.Board.BlackScore > _core.Board.WhiteScore ? Colour.Black : Colour.White;
+
+    public Board Board { get; private set; }
+    
+    public Colour Player { get; private set; }
+
+    public bool Thinking => _moveTask != null;
 
     public void StartGame(bool blackIsCpu = false, bool whiteIsCpu = true, int level = 10)
     {
@@ -36,16 +42,16 @@ public class Coordinator
 
         Board = new Board(_core.Board);
 
-        _player = Colour.Black;
+        Player = Colour.Black;
     }
 
     public void Update(double elapsedMilliseconds)
     {
         if (_moveTask == null)
         {
-            if ((_blackIsCpu && _player == Colour.Black) || (_whiteIsCpu && _player == Colour.White))
+            if ((_blackIsCpu && Player == Colour.Black) || (_whiteIsCpu && Player == Colour.White))
             {
-                _moveTask = Task.Run(() => _bestMove = _core.GetBestMove(_player, _level).Cell);
+                _moveTask = Task.Run(() => _bestMove = _core.GetBestMove(Player, _level).Cell);
             }
         }
         else if (_moveTask.IsCompleted)
@@ -58,7 +64,7 @@ public class Coordinator
 
     public void CellClicked(int cell)
     {
-        if ((! _blackIsCpu && _player == Colour.Black) || (! _whiteIsCpu && _player == Colour.White))
+        if ((! _blackIsCpu && Player == Colour.Black) || (! _whiteIsCpu && Player == Colour.White))
         {
             MakeMove(cell);
         }
@@ -66,11 +72,11 @@ public class Coordinator
 
     private void MakeMove(int cell)
     {
-        if (_core.MakeMove(_player, cell))
+        if (_core.MakeMove(Player, cell))
         {
-            Board.MakeMove(_player, cell);
+            Board.MakeMove(Player, cell);
 
-            _player = _player.Invert();
+            Player = Player.Invert();
         }
     }
 }
