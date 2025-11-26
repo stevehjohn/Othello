@@ -117,7 +117,7 @@ public class Renderer : Game
             _moveTask = null;
         }
         
-        _moveTask ??= Task.Run(() => _bestMove = _core.GetBestMove(_player, 10).Cell);
+        _moveTask ??= Task.Run(() => _bestMove = _core.GetBestMove(_player, 11).Cell);
 
         base.Update(gameTime);
     }
