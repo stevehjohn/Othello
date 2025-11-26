@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Numerics;
 using System.Threading.Tasks;
 using Othello.Engine;
 using Othello.Engine.Extensions;
@@ -22,6 +24,8 @@ public class Coordinator
 
     private double _moveCalculatedTime = -1;
 
+    private List<int> _playerLegalMoves = [];
+
     public bool GameOver => _core.GameOver;
 
     public Colour Winner => _core.Board.BlackScore > _core.Board.WhiteScore ? Colour.Black : Colour.White;
@@ -45,6 +49,24 @@ public class Coordinator
         Board = new Board(_core.Board);
 
         Player = Colour.Black;
+    }
+
+    public List<int> GetPlayerLegalMoves()
+    {
+        _playerLegalMoves.Clear();
+
+        var moves = _core.GetLegalMoves(Player);
+
+        while (moves != 0)
+        {
+            var cell = BitOperations.TrailingZeroCount(moves);
+
+            moves ^= 1ul << cell;
+            
+            _playerLegalMoves.Add(cell);
+        }
+
+        return _playerLegalMoves;
     }
 
     public void Update(double elapsedMilliseconds)
