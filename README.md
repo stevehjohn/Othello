@@ -2,7 +2,7 @@
 
 ## Usage
 
-UI: `desktop.bat` or `desktop.sh`. No menu yet, defaults to player vs CPU.
+UI: `desktop.bat` or `./desktop.sh`. No menu yet, defaults to player vs CPU.
 
 Unit tests: `test.bat` or `./test.sh` depending on your platform.
 
