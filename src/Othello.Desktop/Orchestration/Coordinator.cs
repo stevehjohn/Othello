@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
 using Othello.Engine;
@@ -55,6 +56,11 @@ public class Coordinator
 
     public List<int> GetPlayerLegalMoves()
     {
+        if (_moveTask != null)
+        {
+            return [];
+        }
+
         _playerLegalMoves.Clear();
 
         _boardAnalyser.Board = Board;
