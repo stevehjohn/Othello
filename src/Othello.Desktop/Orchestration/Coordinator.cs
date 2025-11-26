@@ -8,17 +8,19 @@ namespace Othello.Desktop.Orchestration;
 
 public class Coordinator
 {
+    private const int MoveDelay = 200;
+    
     private readonly Core _core = new();
 
-    private Task _moveTask;
+    private readonly bool[] _playerIsCpu = new bool[2];
 
-    private bool[] _playerIsCpu = new bool[2];
+    private Task _moveTask;
 
     private int _bestMove;
 
     private int _level;
 
-    private double _moveCalculatedTime;
+    private double _moveCalculatedTime = -1;
 
     public bool GameOver => _core.GameOver;
 
@@ -56,13 +58,19 @@ public class Coordinator
         }
         else if (_moveTask.IsCompleted)
         {
-            if (PlayerIsCpu(Player.Invert()))
+            if (_moveCalculatedTime < 0)
             {
+                _moveCalculatedTime = PlayerIsCpu(Player.Invert()) ? elapsedMilliseconds + MoveDelay : elapsedMilliseconds;
+
+                MakeMove(_bestMove);
             }
 
-            MakeMove(_bestMove);
+            if (elapsedMilliseconds - _moveCalculatedTime > MoveDelay)
+            {
+                _moveTask = null;
 
-            _moveTask = null;
+                _moveCalculatedTime = -1;
+            }
         }
     }
 
