@@ -16,7 +16,7 @@ public class Coordinator
 
     private Task _moveTask;
 
-    private bool BlackIsCpu = true;
+    private bool BlackIsCpu = false;
 
     private bool WhiteIsCpu = true;
 
@@ -58,10 +58,11 @@ public class Coordinator
 
     private void MakeMove(int cell)
     {
-        _core.MakeMove(_player, cell);
+        if (_core.MakeMove(_player, cell))
+        {
+            Board.MakeMove(_player, cell);
 
-        Board.MakeMove(_player, cell);
-
-        _player = _player.Invert();
+            _player = _player.Invert();
+        }
     }
 }
