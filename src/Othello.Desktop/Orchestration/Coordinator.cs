@@ -12,6 +12,13 @@ public class Coordinator
 
     public Board Board { get; private set; }
 
+    public void StartGame()
+    {
+        _core.StartGame();
+
+        Board = new Board(_core.Board);
+    }
+
     public void CellClicked(int cell)
     {
     }
