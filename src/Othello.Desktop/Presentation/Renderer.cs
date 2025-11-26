@@ -1,7 +1,8 @@
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Othello.Desktop.Orchestration;
+using Othello.Engine.Infrastructure;
 
 namespace Othello.Desktop.Presentation;
 
@@ -30,13 +31,7 @@ public class Renderer : Game
 
     private Texture2D _white;
 
-    private Task _moveTask;
-
-    private int _bestMove;
-
-    private int _passCount;
-
-    private double _lastActionMilliseconds;
+    private MouseState _previousMouseState;
     
     public Renderer()
     {
@@ -73,6 +68,26 @@ public class Renderer : Game
 
     protected override void Update(GameTime gameTime)
     {
+        var mouseState = Mouse.GetState();
+
+        if (mouseState.LeftButton == ButtonState.Released && _previousMouseState.LeftButton == ButtonState.Pressed)
+        {
+            var x = (mouseState.X - ArenaLeft) / CellStride;
+
+            var y = (mouseState.Y - ArenaTop) / CellStride;
+
+            if (x < Constants.Columns && y < Constants.Rows)
+            {
+                var cell = y * 8 + x;
+                
+                _coordinator.CellClicked(cell);
+            }
+        }
+        
+        Mouse.SetCursor(MouseCursor.Hand);
+
+        _previousMouseState = mouseState;
+        
         // var delay = _passCount > 1 ? 1_000 : 200;
         //
         // if (gameTime.TotalGameTime.TotalMilliseconds - _lastActionMilliseconds < delay)

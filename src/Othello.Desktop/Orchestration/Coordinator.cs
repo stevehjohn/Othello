@@ -11,4 +11,8 @@ public class Coordinator
     private Colour _player = Colour.Black;
 
     public Board Board { get; private set; }
+
+    public void CellClicked(int cell)
+    {
+    }
 }

@@ -7,4 +7,6 @@ public static class Constants
     public const int Cells = 64;
 
     public const int Rows = 8;
+
+    public const int Columns = 8;
 }
