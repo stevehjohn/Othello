@@ -118,11 +118,14 @@ public class Renderer : Game
                 _gameOverTime = gameTime.TotalGameTime.TotalMilliseconds;
             }
 
-            if (clicked && gameTime.TotalGameTime.TotalMilliseconds - _gameOverTime > GameOverDelay)
+            if (gameTime.TotalGameTime.TotalMilliseconds - _gameOverTime > GameOverDelay)
             {
-                _coordinator.StartGame();
+                if (clicked || (_coordinator.PlayerIsCpu(Colour.Black) && _coordinator.PlayerIsCpu(Colour.White)))
+                {
+                    _coordinator.StartGame();
 
-                _gameOverTime = -1;
+                    _gameOverTime = -1;
+                }
             }
         }
         else

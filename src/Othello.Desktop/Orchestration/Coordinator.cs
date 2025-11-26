@@ -86,7 +86,7 @@ public class Coordinator
         }
     }
 
-    private bool PlayerIsCpu(Colour colour)
+    public bool PlayerIsCpu(Colour colour)
     {
         return _playerIsCpu[(int) colour];
     }
