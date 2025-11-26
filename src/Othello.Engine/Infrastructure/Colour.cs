@@ -2,6 +2,6 @@ namespace Othello.Engine.Infrastructure;
 
 public enum Colour
 {
-    Black,
-    White
+    Black = 0,
+    White = 1
 }

@@ -12,13 +12,13 @@ public class Coordinator
 
     private Task _moveTask;
 
-    private bool _blackIsCpu;
-
-    private bool _whiteIsCpu;
+    private bool[] _playerIsCpu = new bool[2];
 
     private int _bestMove;
 
     private int _level;
+
+    private double _moveCalculatedTime;
 
     public bool GameOver => _core.GameOver;
 
@@ -32,9 +32,9 @@ public class Coordinator
 
     public void StartGame(bool blackIsCpu = false, bool whiteIsCpu = true, int level = 10)
     {
-        _blackIsCpu = blackIsCpu;
+        PlayerIsCpu(Colour.Black, blackIsCpu);
 
-        _whiteIsCpu = whiteIsCpu;
+        PlayerIsCpu(Colour.White, whiteIsCpu);
 
         _level = level;
         
@@ -49,13 +49,17 @@ public class Coordinator
     {
         if (_moveTask == null)
         {
-            if ((_blackIsCpu && Player == Colour.Black) || (_whiteIsCpu && Player == Colour.White))
+            if (PlayerIsCpu(Player))
             {
                 _moveTask = Task.Run(() => _bestMove = _core.GetBestMove(Player, _level).Cell);
             }
         }
         else if (_moveTask.IsCompleted)
         {
+            if (PlayerIsCpu(Player.Invert()))
+            {
+            }
+
             MakeMove(_bestMove);
 
             _moveTask = null;
@@ -64,10 +68,20 @@ public class Coordinator
 
     public void CellClicked(int cell)
     {
-        if ((! _blackIsCpu && Player == Colour.Black) || (! _whiteIsCpu && Player == Colour.White))
+        if (! PlayerIsCpu(Player))
         {
             MakeMove(cell);
         }
+    }
+
+    private bool PlayerIsCpu(Colour colour)
+    {
+        return _playerIsCpu[(int) colour];
+    }
+
+    private void PlayerIsCpu(Colour colour, bool isCpu)
+    {
+        _playerIsCpu[(int) colour] = isCpu;
     }
 
     private void MakeMove(int cell)
