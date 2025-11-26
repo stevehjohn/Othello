@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -50,6 +51,8 @@ public class Renderer : Game
     {
         Window.Title = "Othello";
         
+        _coordinator.StartGame();
+        
         base.Initialize();
     }
 
@@ -70,23 +73,36 @@ public class Renderer : Game
     {
         var mouseState = Mouse.GetState();
 
-        if (mouseState.LeftButton == ButtonState.Released && _previousMouseState.LeftButton == ButtonState.Pressed)
+        if (mouseState.X > ArenaLeft && mouseState.Y > ArenaTop)
         {
             var x = (mouseState.X - ArenaLeft) / CellStride;
 
             var y = (mouseState.Y - ArenaTop) / CellStride;
 
+            var cell = -1;
+
             if (x < Constants.Columns && y < Constants.Rows)
             {
-                var cell = y * 8 + x;
-                
+                cell = y * 8 + x;
+
+                Mouse.SetCursor(MouseCursor.Hand);
+
+                Console.WriteLine(cell);
+            }
+            else
+            {
+                Mouse.SetCursor(MouseCursor.Arrow);
+            }
+
+            if (mouseState.LeftButton == ButtonState.Released && _previousMouseState.LeftButton == ButtonState.Pressed && cell > -1)
+            {
                 _coordinator.CellClicked(cell);
             }
         }
-        
-        Mouse.SetCursor(MouseCursor.Hand);
 
         _previousMouseState = mouseState;
+        
+        _coordinator.Update(gameTime.TotalGameTime.TotalMilliseconds);
         
         // var delay = _passCount > 1 ? 1_000 : 200;
         //
