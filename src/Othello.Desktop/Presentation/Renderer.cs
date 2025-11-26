@@ -2,7 +2,6 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Othello.Desktop.Orchestration;
-using Othello.Engine.Kernel;
 
 namespace Othello.Desktop.Presentation;
 
