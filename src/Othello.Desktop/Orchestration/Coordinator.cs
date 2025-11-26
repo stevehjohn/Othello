@@ -43,6 +43,8 @@ public class Coordinator
         else if (_moveTask.IsCompleted)
         {
             MakeMove(_bestMove);
+
+            _moveTask = null;
         }
     }
 

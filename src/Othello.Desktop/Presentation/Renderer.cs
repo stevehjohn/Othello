@@ -86,8 +86,6 @@ public class Renderer : Game
                 cell = y * 8 + x;
 
                 Mouse.SetCursor(MouseCursor.Hand);
-
-                Console.WriteLine(cell);
             }
             else
             {
