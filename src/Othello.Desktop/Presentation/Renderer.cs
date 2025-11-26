@@ -72,6 +72,8 @@ public class Renderer : Game
     {
         var mouseState = Mouse.GetState();
 
+        var clicked = false;
+
         if (mouseState.X > ArenaLeft && mouseState.Y > ArenaTop)
         {
             var x = (mouseState.X - ArenaLeft) / CellStride;
@@ -82,6 +84,8 @@ public class Renderer : Game
 
             if (x < Constants.Columns && y < Constants.Rows)
             {
+                clicked = true;
+                
                 cell = y * 8 + x;
 
                 Mouse.SetCursor(MouseCursor.Hand);
@@ -104,6 +108,11 @@ public class Renderer : Game
         if (_coordinator.GameOver)
         {
             Window.Title = $"Othello. Game over. {_coordinator.Winner} wins!";
+
+            if (clicked)
+            {
+                _coordinator.StartGame();
+            }
         }
         else
         {
