@@ -35,7 +35,7 @@ public class Renderer : Game
 
     private MouseState _previousMouseState;
 
-    private int _gameOverTime = -1;
+    private double _gameOverTime = -1;
     
     public Renderer()
     {
@@ -76,21 +76,19 @@ public class Renderer : Game
     {
         var mouseState = Mouse.GetState();
 
-        var clicked = false;
+        var clickedCell = -1;
 
+        var clicked = false;
+        
         if (mouseState.X > ArenaLeft && mouseState.Y > ArenaTop)
         {
             var x = (mouseState.X - ArenaLeft) / CellStride;
 
             var y = (mouseState.Y - ArenaTop) / CellStride;
 
-            var cell = -1;
-
             if (x < Constants.Columns && y < Constants.Rows)
             {
-                clicked = true;
-                
-                cell = y * 8 + x;
+                clickedCell = y * 8 + x;
 
                 Mouse.SetCursor(MouseCursor.Hand);
             }
@@ -99,9 +97,11 @@ public class Renderer : Game
                 Mouse.SetCursor(MouseCursor.Arrow);
             }
 
-            if (mouseState.LeftButton == ButtonState.Released && _previousMouseState.LeftButton == ButtonState.Pressed && cell > -1)
+            if (mouseState.LeftButton == ButtonState.Released && _previousMouseState.LeftButton == ButtonState.Pressed && clickedCell > -1)
             {
-                _coordinator.CellClicked(cell);
+                clicked = true;
+                
+                _coordinator.CellClicked(clickedCell);
             }
         }
 
@@ -115,10 +115,10 @@ public class Renderer : Game
 
             if (_gameOverTime < 0)
             {
-                _gameOverTime = gameTime.TotalGameTime.Microseconds;
+                _gameOverTime = gameTime.TotalGameTime.TotalMilliseconds;
             }
 
-            if (clicked && gameTime.TotalGameTime.Microseconds - _gameOverTime > GameOverDelay)
+            if (clicked && gameTime.TotalGameTime.TotalMilliseconds - _gameOverTime > GameOverDelay)
             {
                 _coordinator.StartGame();
 
