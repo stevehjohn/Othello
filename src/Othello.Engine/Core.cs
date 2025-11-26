@@ -61,7 +61,7 @@ public class Core
                 return (EvaluateBoard(player, playerMoves, opponentMoves), -1);
             }
 
-            var result = GetBestMove(player.Invert(), depth - 1, -alpha, -beta);
+            var result = GetBestMove(player.Invert(), depth - 1, -beta, -alpha);
 
             return (-result.Score, -1);
         }
@@ -83,7 +83,7 @@ public class Core
                 continue;
             }
 
-            var result = GetBestMove(player.Invert(), depth - 1, -alpha, -beta);
+            var result = GetBestMove(player.Invert(), depth - 1, -beta, -alpha);
 
             Board.UndoLastMove();
 
