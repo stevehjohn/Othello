@@ -50,7 +50,7 @@ public class Renderer : Game
     {
         Window.Title = "Othello";
         
-        _coordinator.StartGame(true, true);
+        _coordinator.StartGame();
         
         base.Initialize();
     }
