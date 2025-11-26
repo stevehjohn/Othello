@@ -133,7 +133,7 @@ public class Board
     {
         var flips = 0ul;
         
-        for (var i = 0; i < 6; i++)
+        while (true)
         {
             var shifted = (1ul << cell).Shift(direction);
             
