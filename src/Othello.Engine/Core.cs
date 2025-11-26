@@ -34,7 +34,7 @@ public class Core
         return Board.MakeMove(colour, cell);
     }
 
-    public (int Score, int ) GetBestMove(Colour player, int depth = 7)
+    public (int Score, int Cell) GetBestMove(Colour player, int depth = 7)
     {
         return GetBestMove(player, depth, int.MinValue, int.MaxValue);
     }
