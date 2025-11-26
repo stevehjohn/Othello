@@ -54,7 +54,7 @@ public class Renderer : Game
     {
         Window.Title = "Othello";
         
-        _coordinator.StartGame();
+        _coordinator.StartGame(true);
         
         base.Initialize();
     }
@@ -122,7 +122,7 @@ public class Renderer : Game
             {
                 if (clicked || (_coordinator.PlayerIsCpu(Colour.Black) && _coordinator.PlayerIsCpu(Colour.White)))
                 {
-                    _coordinator.StartGame();
+                    _coordinator.StartGame(true);
 
                     _gameOverTime = -1;
                 }
