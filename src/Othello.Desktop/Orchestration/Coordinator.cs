@@ -16,6 +16,10 @@ public class Coordinator
 
     private readonly bool[] _playerIsCpu = new bool[2];
 
+    private readonly List<int> _playerLegalMoves = [];
+
+    private readonly BoardAnalyser _boardAnalyser = new();
+
     private Task _moveTask;
 
     private int _bestMove;
@@ -23,8 +27,6 @@ public class Coordinator
     private int _level;
 
     private double _moveCalculatedTime = -1;
-
-    private List<int> _playerLegalMoves = [];
 
     public bool GameOver => _core.GameOver;
 
@@ -55,7 +57,9 @@ public class Coordinator
     {
         _playerLegalMoves.Clear();
 
-        var moves = _core.GetLegalMoves(Player);
+        _boardAnalyser.Board = Board;
+        
+        var moves = _boardAnalyser.GetLegalMoves(Player);
 
         while (moves != 0)
         {

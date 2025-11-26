@@ -5,18 +5,20 @@ namespace Othello.Engine.Kernel;
 
 public class BoardAnalyser
 {
-    private readonly Board _board;
+    public Board Board { private get; set; }
+
+    public BoardAnalyser() { }
 
     public BoardAnalyser(Board board)
     {
-        _board = board;
+        Board = board;
     }
 
     public ulong GetLegalMoves(Colour colour)
     {
-        var friendly = colour == Colour.Black ? _board.Black.Pieces : _board.White.Pieces;
+        var friendly = colour == Colour.Black ? Board.Black.Pieces : Board.White.Pieces;
 
-        var opponent = colour == Colour.Black ? _board.White.Pieces : _board.Black.Pieces;
+        var opponent = colour == Colour.Black ? Board.White.Pieces : Board.Black.Pieces;
 
         var empty = ~(friendly | opponent);
 

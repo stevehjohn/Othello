@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -10,8 +11,6 @@ public class Renderer : Game
 {
     private const int GameOverDelay = 1_000;
     
-    private readonly Coordinator _coordinator = new();
-    
     private const int Width = 902;
 
     private const int Height = 894;
@@ -21,6 +20,10 @@ public class Renderer : Game
     private const int ArenaLeft = 68;
 
     private const int CellStride = 98;
+
+    private readonly Coordinator _coordinator = new();
+    
+    private List<int> _playerLegalMoves;
 
     // ReSharper disable once NotAccessedField.Local
     private GraphicsDeviceManager _graphics;
@@ -109,6 +112,8 @@ public class Renderer : Game
         
         _coordinator.Update(gameTime.TotalGameTime.TotalMilliseconds);
 
+        _playerLegalMoves = _coordinator.GetPlayerLegalMoves();
+
         if (_coordinator.GameOver)
         {
             Window.Title = $"Othello. Game over. {_coordinator.Winner} wins!";
@@ -152,6 +157,11 @@ public class Renderer : Game
 
                 if (! _coordinator.Board[cell])
                 {
+                    if (_playerLegalMoves.Contains(cell))
+                    {
+                        _spriteBatch.Draw(_coordinator.Player == Colour.Black ? _black : _white, new Vector2(ArenaLeft + x * CellStride, ArenaTop + y * CellStride), Color.FromNonPremultiplied(255, 255, 255, 92));
+                    }
+
                     continue;
                 }
 

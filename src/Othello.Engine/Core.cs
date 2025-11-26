@@ -41,8 +41,6 @@ public class Core
 
     public bool HasLegalMoves(Colour colour) => _analyser.GetLegalMoves(colour) > 0;
 
-    public ulong GetLegalMoves(Colour colour) => _analyser.GetLegalMoves(colour);
-
     private (int Score, int Cell) GetBestMove(Colour player, int depth, int alpha, int beta)
     {
         var playerMoves = _analyser.GetLegalMoves(player);
