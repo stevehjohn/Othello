@@ -36,11 +36,6 @@ public class Core
 
     public (int Score, int Cell) GetBestMove(Colour player, int depth = 7)
     {
-        if (Board.EmptyCellCount < 24)
-        {
-            depth = Board.EmptyCellCount;
-        }
-
         return GetBestMove(player, depth, int.MinValue, int.MaxValue);
     }
 
