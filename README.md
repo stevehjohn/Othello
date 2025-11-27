@@ -2,7 +2,8 @@
 
 ## Usage
 
-UI: `desktop.bat` or `./desktop.sh`. No menu yet, defaults to player vs CPU.
+UI: `desktop.bat` or `./desktop.sh`. No menu yet, defaults to player vs CPU. This takes 2 parameters,
+number of human players (defaults to 1) and level (defaults to 10). Level is how far the CPU plans ahead. 
 
 Unit tests: `test.bat` or `./test.sh` depending on your platform.
 

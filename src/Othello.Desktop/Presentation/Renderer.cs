@@ -40,8 +40,12 @@ public class Renderer : Game
     private MouseState _previousMouseState;
 
     private double _gameOverTime = -1;
+
+    private int _players;
+
+    private int _level;
     
-    public Renderer()
+    public Renderer(int players, int level)
     {
         _graphics = new GraphicsDeviceManager(this)
         {
@@ -52,13 +56,21 @@ public class Renderer : Game
         Content.RootDirectory = "_Content";
 
         IsMouseVisible = true;
+
+        _players = players;
+
+        _level = level;
     }
 
     protected override void Initialize()
     {
         Window.Title = "Othello";
+
+        var player1IsCpu = _players == 0;
+
+        var player2IsCpu = _players < 2;
         
-        _coordinator.StartGame();
+        _coordinator.StartGame(player1IsCpu, player2IsCpu, _level);
         
         base.Initialize();
     }
