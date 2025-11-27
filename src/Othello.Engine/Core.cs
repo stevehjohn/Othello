@@ -38,7 +38,7 @@ public class Core
     {
         if (Board.EmptyCells < 18)
         {
-            depth = Board.EmptyCells;
+            depth = int.MaxValue;
         }
 
         var result = GetBestMove(player, depth, int.MinValue, int.MaxValue);

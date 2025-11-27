@@ -45,6 +45,8 @@ public class Renderer : Game
 
     private double _gameOverTime = -1;
 
+    private int _gameNumber;
+
     public Renderer(int players, int level)
     {
         _graphics = new GraphicsDeviceManager(this)
@@ -188,6 +190,8 @@ public class Renderer : Game
 
     private void StartGame()
     {
+        Console.WriteLine($"New game {++_gameNumber}.");
+        
         var player1IsCpu = _players == 0;
 
         var player2IsCpu = _players < 2;
