@@ -113,6 +113,11 @@ public class Coordinator
                 _moveCalculatedTime = -1;
             }
         }
+
+        if (_moveTask != null && _moveTask.IsFaulted)
+        {
+            throw _moveTask.Exception;
+        }
     }
 
     public void CellClicked(int cell)
