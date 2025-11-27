@@ -128,6 +128,11 @@ public class Coordinator
         return _playerIsCpu[(int) colour];
     }
 
+    public bool CurrentPlayerIsCpu()
+    {
+        return PlayerIsCpu(Player);
+    }
+
     private void PlayerIsCpu(Colour colour, bool isCpu)
     {
         _playerIsCpu[(int) colour] = isCpu;

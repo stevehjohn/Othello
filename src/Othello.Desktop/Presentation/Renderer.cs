@@ -120,8 +120,15 @@ public class Renderer : Game
         _coordinator.Update(gameTime.TotalGameTime.TotalMilliseconds);
 
         _playerLegalMoves = _coordinator.GetPlayerLegalMoves();
-        
-        Mouse.SetCursor(_playerLegalMoves.Contains(cell) ? MouseCursor.Hand : MouseCursor.Arrow);
+
+        if (_coordinator.CurrentPlayerIsCpu())
+        {
+            Mouse.SetCursor(MouseCursor.Arrow);            
+        }
+        else
+        {
+            Mouse.SetCursor(_playerLegalMoves.Contains(cell) ? MouseCursor.Hand : MouseCursor.Arrow);
+        }
 
         if (_coordinator.GameOver)
         {
