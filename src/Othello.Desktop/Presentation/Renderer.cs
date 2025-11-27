@@ -66,11 +66,7 @@ public class Renderer : Game
     {
         Window.Title = "Othello";
 
-        var player1IsCpu = _players == 0;
-
-        var player2IsCpu = _players < 2;
-        
-        _coordinator.StartGame(player1IsCpu, player2IsCpu, _level);
+        StartGame();
         
         base.Initialize();
     }
@@ -143,7 +139,7 @@ public class Renderer : Game
             {
                 if (clicked || (_coordinator.PlayerIsCpu(Colour.Black) && _coordinator.PlayerIsCpu(Colour.White)))
                 {
-                    _coordinator.StartGame();
+                    StartGame();
 
                     _gameOverTime = -1;
                 }
@@ -188,5 +184,14 @@ public class Renderer : Game
         _spriteBatch.End();
         
         base.Draw(gameTime);
+    }
+
+    private void StartGame()
+    {
+        var player1IsCpu = _players == 0;
+
+        var player2IsCpu = _players < 2;
+        
+        _coordinator.StartGame(player1IsCpu, player2IsCpu, _level);
     }
 }
