@@ -96,8 +96,16 @@ public class Coordinator
             {
                 Player = Player.Invert();
             }
+            
+            return;
         }
-        else if (_moveTask.IsCompleted)
+        
+        if (_moveTask != null && _moveTask.IsFaulted)
+        {
+            throw _moveTask.Exception;
+        }
+
+        if (_moveTask.IsCompleted)
         {
             if (_moveCalculatedTime < 0)
             {
@@ -112,11 +120,6 @@ public class Coordinator
 
                 _moveCalculatedTime = -1;
             }
-        }
-
-        if (_moveTask != null && _moveTask.IsFaulted)
-        {
-            throw _moveTask.Exception;
         }
     }
 
