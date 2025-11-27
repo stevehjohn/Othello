@@ -188,6 +188,8 @@ public class Renderer : Game
 
     private void StartGame()
     {
+        Console.WriteLine("New game.");
+        
         var player1IsCpu = _players == 0;
 
         var player2IsCpu = _players < 2;

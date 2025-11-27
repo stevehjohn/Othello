@@ -15,7 +15,7 @@ public class Core
 
     public Board Board { get; }
 
-    public bool GameOver => _analyser.GetLegalMoves(Colour.Black) == 0 && _analyser.GetLegalMoves(Colour.White) == 0;
+    public bool GameOver { get; private set; }
 
     public Core()
     {
@@ -36,7 +36,11 @@ public class Core
 
     public (int Score, int Cell) GetBestMove(Colour player, int depth = 7)
     {
-        return GetBestMove(player, depth, int.MinValue, int.MaxValue);
+        var result = GetBestMove(player, depth, int.MinValue, int.MaxValue);
+
+        GameOver = _analyser.GetLegalMoves(Colour.Black) == 0 && _analyser.GetLegalMoves(Colour.White) == 0;
+
+        return result;
     }
 
     public bool HasLegalMoves(Colour colour) => _analyser.GetLegalMoves(colour) > 0;
