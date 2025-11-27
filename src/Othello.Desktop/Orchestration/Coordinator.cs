@@ -22,7 +22,7 @@ public class Coordinator
 
     private Task _moveTask;
 
-    private int _bestMove;
+    private int _bestMove = -1;
 
     private int _level;
 
@@ -55,6 +55,16 @@ public class Coordinator
         Board = new Board(_core.Board);
 
         Player = Colour.Black;
+
+        _moveCalculatedTime = -1;
+
+        _moveTask = null;
+
+        _bestMove = -1;
+        
+        _playerLegalMoves.Clear();
+
+        _playerLegalMovesColour = null;
     }
 
     public List<int> GetPlayerLegalMoves()

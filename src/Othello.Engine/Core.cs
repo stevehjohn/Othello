@@ -27,6 +27,8 @@ public class Core
     public void StartGame()
     {
         Board.InitialiseNewGame();
+
+        GameOver = false;
     }
 
     public bool MakeMove(Colour colour, int cell)

@@ -171,6 +171,8 @@ public class Board
 
             _planes.White[i] = false;
         }
+        
+        _history.Clear();
     }
 
     public override string ToString()
