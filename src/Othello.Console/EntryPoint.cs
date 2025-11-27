@@ -43,7 +43,7 @@ public static class EntryPoint
 
                 stopwatch.Restart();
 
-                var move = core.GetBestMove(player, 11);
+                var move = core.GetBestMove(player, 10);
 
                 stopwatch.Stop();
 
