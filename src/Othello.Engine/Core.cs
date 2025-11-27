@@ -33,6 +33,11 @@ public class Core
 
     public bool MakeMove(Colour colour, int cell)
     {
+        if (cell is < 0 or >= Constants.Cells)
+        {
+            return false;
+        }
+
         return Board.MakeMove(colour, cell);
     }
 

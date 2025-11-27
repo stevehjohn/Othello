@@ -165,6 +165,8 @@ public class Coordinator
             _moveTask = null;
 
             _moveCalculatedTime = -1;
+            
+            return;
         }
 
         if (_core.MakeMove(Player, cell))
