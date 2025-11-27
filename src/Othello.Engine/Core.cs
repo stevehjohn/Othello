@@ -36,6 +36,11 @@ public class Core
 
     public (int Score, int Cell) GetBestMove(Colour player, int depth = 7)
     {
+        if (Board.EmptyCells < 18)
+        {
+            depth = Board.EmptyCells;
+        }
+
         var result = GetBestMove(player, depth, int.MinValue, int.MaxValue);
 
         GameOver = _analyser.GetLegalMoves(Colour.Black) == 0 && _analyser.GetLegalMoves(Colour.White) == 0;

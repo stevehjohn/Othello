@@ -21,6 +21,8 @@ public class Board
 
     public int WhiteScore => White.PieceCount;
 
+    public int EmptyCells => Constants.Cells - (BlackScore + WhiteScore);
+
     public bool IsFull => BlackScore + WhiteScore == Constants.Cells;
 
     public Plane this[Colour colour] => colour == Colour.Black ? _planes.Black : _planes.White;
