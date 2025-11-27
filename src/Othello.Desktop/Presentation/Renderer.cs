@@ -24,6 +24,10 @@ public class Renderer : Game
 
     private readonly Coordinator _coordinator = new();
     
+    private readonly int _players;
+
+    private readonly int _level;
+    
     private List<int> _playerLegalMoves;
 
     // ReSharper disable once NotAccessedField.Local
@@ -41,10 +45,6 @@ public class Renderer : Game
 
     private double _gameOverTime = -1;
 
-    private int _players;
-
-    private int _level;
-    
     public Renderer(int players, int level)
     {
         _graphics = new GraphicsDeviceManager(this)
@@ -92,7 +92,7 @@ public class Renderer : Game
     {
         var mouseState = Mouse.GetState();
 
-        var clickedCell = -1;
+        var cell = -1;
 
         var clicked = false;
         
@@ -104,20 +104,14 @@ public class Renderer : Game
 
             if (x < Constants.Columns && y < Constants.Rows)
             {
-                clickedCell = y * 8 + x;
-
-                Mouse.SetCursor(MouseCursor.Hand);
-            }
-            else
-            {
-                Mouse.SetCursor(MouseCursor.Arrow);
+                cell = y * 8 + x;
             }
 
-            if (mouseState.LeftButton == ButtonState.Released && _previousMouseState.LeftButton == ButtonState.Pressed && clickedCell > -1)
+            if (mouseState.LeftButton == ButtonState.Released && _previousMouseState.LeftButton == ButtonState.Pressed && cell > -1)
             {
                 clicked = true;
                 
-                _coordinator.CellClicked(clickedCell);
+                _coordinator.CellClicked(cell);
             }
         }
 
@@ -126,6 +120,8 @@ public class Renderer : Game
         _coordinator.Update(gameTime.TotalGameTime.TotalMilliseconds);
 
         _playerLegalMoves = _coordinator.GetPlayerLegalMoves();
+        
+        Mouse.SetCursor(_playerLegalMoves.Contains(cell) ? MouseCursor.Hand : MouseCursor.Arrow);
 
         if (_coordinator.GameOver)
         {
