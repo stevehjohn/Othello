@@ -45,8 +45,6 @@ public class Renderer : Game
 
     private double _gameOverTime = -1;
 
-    private int _gameNumber;
-
     public Renderer(int players, int level)
     {
         _graphics = new GraphicsDeviceManager(this)
