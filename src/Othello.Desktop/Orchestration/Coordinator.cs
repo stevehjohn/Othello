@@ -105,6 +105,8 @@ public class Coordinator
             else if (! _core.HasLegalMoves(Player) && ! GameOver)
             {
                 Player = Player.Invert();
+
+                _playerLegalMovesColour = _playerLegalMovesColour?.Invert();
             }
             
             return;
@@ -156,6 +158,10 @@ public class Coordinator
         Board.UndoLastMove();
         
         _core.Board.UndoLastMove();
+
+        _playerLegalMovesColour = _playerLegalMovesColour?.Invert();
+
+        GetPlayerLegalMoves();
     }
 
     private void PlayerIsCpu(Colour colour, bool isCpu)
