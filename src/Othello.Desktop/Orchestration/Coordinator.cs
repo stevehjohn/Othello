@@ -67,6 +67,8 @@ public class Coordinator
         _playerLegalMoves.Clear();
 
         _playerLegalMovesColour = null;
+        
+        _turns.Clear();
     }
 
     public List<int> GetPlayerLegalMoves()
@@ -157,17 +159,19 @@ public class Coordinator
 
     public void UndoLastMove()
     {
-        Board.UndoLastMove();
+        var player = Player;
         
-        _core.Board.UndoLastMove();
-
-        if (_turns.Count > 0)
+        while (_turns.Count > 0 && Player == player)
         {
-            Player = _turns.Pop();
+            Board.UndoLastMove();
+        
+            _core.Board.UndoLastMove();
 
-            _playerLegalMovesColour = Player.Invert();
+            Player = _turns.Pop();
         }
 
+        _playerLegalMovesColour = Player.Invert();
+        
         GetPlayerLegalMoves();
     }
 
