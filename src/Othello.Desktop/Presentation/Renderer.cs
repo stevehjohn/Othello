@@ -11,7 +11,7 @@ namespace Othello.Desktop.Presentation;
 public class Renderer : Game
 {
     private const int GameOverDelay = 1_000;
-    
+
     private const int Width = 902;
 
     private const int Height = 894;
@@ -23,11 +23,11 @@ public class Renderer : Game
     private const int CellStride = 98;
 
     private readonly Coordinator _coordinator = new();
-    
+
     private readonly int _players;
 
     private readonly int _level;
-    
+
     private List<int> _playerLegalMoves;
 
     // ReSharper disable once NotAccessedField.Local
@@ -69,7 +69,7 @@ public class Renderer : Game
         Window.Title = "Othello";
 
         StartGame();
-        
+
         base.Initialize();
     }
 
@@ -82,7 +82,7 @@ public class Renderer : Game
         _black = Content.Load<Texture2D>("black");
 
         _white = Content.Load<Texture2D>("white");
-        
+
         base.LoadContent();
     }
 
@@ -93,7 +93,7 @@ public class Renderer : Game
         var cell = -1;
 
         var clicked = false;
-        
+
         if (mouseState.X > ArenaLeft && mouseState.Y > ArenaTop)
         {
             var x = (mouseState.X - ArenaLeft) / CellStride;
@@ -108,20 +108,20 @@ public class Renderer : Game
             if (mouseState.LeftButton == ButtonState.Released && _previousMouseState.LeftButton == ButtonState.Pressed && cell > -1)
             {
                 clicked = true;
-                
+
                 _coordinator.CellClicked(cell);
             }
         }
 
         _previousMouseState = mouseState;
-        
+
         _coordinator.Update(gameTime.TotalGameTime.TotalMilliseconds);
 
         _playerLegalMoves = _coordinator.GetPlayerLegalMoves();
 
         if (_coordinator.CurrentPlayerIsCpu())
         {
-            Mouse.SetCursor(MouseCursor.Arrow);            
+            Mouse.SetCursor(MouseCursor.Arrow);
         }
         else
         {
@@ -130,7 +130,11 @@ public class Renderer : Game
 
         if (_coordinator.GameOver)
         {
-            Window.Title = $"Othello. Game over. {_coordinator.Winner} wins by {Math.Abs(_coordinator.Board.BlackScore - _coordinator.Board.WhiteScore)}!";
+            var difference = Math.Abs(_coordinator.Board.BlackScore - _coordinator.Board.WhiteScore);
+
+            Window.Title = difference == 0 
+                ? "Othello. It's a draw." 
+                : $"Othello. Game over. {_coordinator.Winner} wins by {difference}!";
 
             if (_gameOverTime < 0)
             {
@@ -158,9 +162,9 @@ public class Renderer : Game
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.Black);
-        
+
         _spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
-        
+
         _spriteBatch.Draw(_background, new Vector2(0, 0), Color.White);
 
         for (var y = 0; y < 8; y++)
@@ -184,18 +188,18 @@ public class Renderer : Game
         }
 
         _spriteBatch.End();
-        
+
         base.Draw(gameTime);
     }
 
     private void StartGame()
     {
         Console.WriteLine($"New game {++_gameNumber}.");
-        
+
         var player1IsCpu = _players == 0;
 
         var player2IsCpu = _players < 2;
-        
+
         _coordinator.StartGame(player1IsCpu, player2IsCpu, _level);
     }
 }
