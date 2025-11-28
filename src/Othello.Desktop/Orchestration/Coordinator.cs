@@ -159,8 +159,13 @@ public class Coordinator
 
     public void UndoLastMove()
     {
+        if (_moveTask != null)
+        {
+            return;
+        }
+
         Colour? player = null;
-        
+
         while (_turns.Count > 0 && Player != player)
         {
             player ??= Player;
