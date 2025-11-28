@@ -30,6 +30,8 @@ public class Coordinator
 
     private double _moveCalculatedTime = -1;
 
+    private Stack<Colour> _turns = [];
+
     public bool GameOver => _core.GameOver;
 
     public Colour Winner => _core.Board.BlackScore > _core.Board.WhiteScore ? Colour.Black : Colour.White;
@@ -159,7 +161,12 @@ public class Coordinator
         
         _core.Board.UndoLastMove();
 
-        _playerLegalMovesColour = _playerLegalMovesColour?.Invert();
+        if (_turns.Count > 0)
+        {
+            Player = _turns.Pop();
+
+            _playerLegalMovesColour = Player.Invert();
+        }
 
         GetPlayerLegalMoves();
     }
@@ -171,6 +178,8 @@ public class Coordinator
 
     private void MakeMove(int cell)
     {
+        _turns.Push(Player);
+        
         if (cell == -1)
         {
             Player = Player.Invert();
