@@ -151,6 +151,15 @@ public class Coordinator
         return PlayerIsCpu(Player);
     }
 
+    public void UndoLastMove()
+    {
+        Board.UndoLastMove();
+        
+        _core.Board.UndoLastMove();
+
+        //Player = Player.Invert();
+    }
+
     private void PlayerIsCpu(Colour colour, bool isCpu)
     {
         _playerIsCpu[(int) colour] = isCpu;

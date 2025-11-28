@@ -47,6 +47,8 @@ public class Renderer : Game
 
     private int _gameNumber;
 
+    private char _keyPressed = '\0';
+
     public Renderer(int players, int level)
     {
         _graphics = new GraphicsDeviceManager(this)
@@ -67,6 +69,8 @@ public class Renderer : Game
     protected override void Initialize()
     {
         Window.Title = "Othello";
+        
+        Window.TextInput += KeyPressed;
 
         StartGame();
 
@@ -156,6 +160,13 @@ public class Renderer : Game
             Window.Title = $"Othello. {_coordinator.Player} {(_coordinator.Thinking ? "(thinking...) " : string.Empty)}to move.";
         }
 
+        if (_keyPressed == '\b')
+        {
+            _coordinator.UndoLastMove();
+
+            _keyPressed = '\0';
+        }
+
         base.Update(gameTime);
     }
 
@@ -201,5 +212,10 @@ public class Renderer : Game
         var player2IsCpu = _players < 2;
 
         _coordinator.StartGame(player1IsCpu, player2IsCpu, _level);
+    }
+
+    private void KeyPressed(object _, TextInputEventArgs arguments)
+    {
+        _keyPressed = arguments.Character;
     }
 }
