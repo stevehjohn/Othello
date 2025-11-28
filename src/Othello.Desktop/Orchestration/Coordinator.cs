@@ -156,8 +156,6 @@ public class Coordinator
         Board.UndoLastMove();
         
         _core.Board.UndoLastMove();
-
-        //Player = Player.Invert();
     }
 
     private void PlayerIsCpu(Colour colour, bool isCpu)
