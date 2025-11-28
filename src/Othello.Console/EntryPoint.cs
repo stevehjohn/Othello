@@ -66,14 +66,9 @@ public static class EntryPoint
 
             WriteLine($" {core.Board.ToString().Replace("\n", "\n ")}");
 
-            if (core.Board.BlackScore == core.Board.WhiteScore)
-            {
-                WriteLine("\n It's a draw.\n");
-            }
-            else
-            {
-                WriteLine($" \n {(core.Board.BlackScore > core.Board.WhiteScore ? "Black" : "White")} wins!\n");
-            }
+            WriteLine(core.Board.BlackScore == core.Board.WhiteScore 
+                ? "\n It's a draw.\n" 
+                : $" \n {(core.Board.BlackScore > core.Board.WhiteScore ? "Black" : "White")} wins!\n");
 
             gameCount++;
 
