@@ -159,10 +159,12 @@ public class Coordinator
 
     public void UndoLastMove()
     {
-        var player = Player;
+        Colour? player = null;
         
-        while (_turns.Count > 0 && Player == player)
+        while (_turns.Count > 0 && Player != player)
         {
+            player ??= Player;
+            
             Board.UndoLastMove();
         
             _core.Board.UndoLastMove();
