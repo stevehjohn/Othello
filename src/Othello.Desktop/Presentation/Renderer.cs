@@ -139,6 +139,8 @@ public class Renderer : Game
             Window.Title = difference == 0 
                 ? "Othello. It's a draw." 
                 : $"Othello. Game over. {_coordinator.Winner} wins by {difference}!";
+            
+            Console.WriteLine(Window.Title);
 
             if (_gameOverTime < 0)
             {
