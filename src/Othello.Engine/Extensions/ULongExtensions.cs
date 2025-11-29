@@ -1,3 +1,4 @@
+using System.Numerics;
 using Othello.Engine.Infrastructure;
 
 namespace Othello.Engine.Extensions;
@@ -23,6 +24,25 @@ public static class ULongExtensions
                 8  => value << 8,
                 _  => (value & ClearWestMask) << 9
             };
+        }
+
+        public int PickRandomBit()
+        {
+            var count = BitOperations.PopCount(value);
+            
+            if (count < 2)
+            {
+                return BitOperations.TrailingZeroCount(value);
+            }
+
+            var target = Random.Shared.Next(count);
+
+            while (target-- > 0)
+            {
+                value &= value - 1;
+            }
+
+            return BitOperations.TrailingZeroCount(value & ~(value - 1));
         }
     }
 }

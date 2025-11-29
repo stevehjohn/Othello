@@ -145,24 +145,24 @@ public class Core
 
         if (corners != 0)
         {
-            return BitOperations.TrailingZeroCount(corners);
+            return corners.PickRandomBit();
         }
 
         var safeMoves = moves & ~(XSquareMask | CSquareMask);
 
         if (safeMoves != 0)
         {
-            return BitOperations.TrailingZeroCount(safeMoves);
+            return safeMoves.PickRandomBit();
         }
 
         safeMoves = moves & ~XSquareMask;
 
         if (safeMoves != 0)
         {
-            return BitOperations.TrailingZeroCount(safeMoves);
+            return safeMoves.PickRandomBit();
         }
 
-        return BitOperations.TrailingZeroCount(moves);
+        return moves.PickRandomBit();
     }
 
 
