@@ -11,6 +11,8 @@ public class Core
 
     private const ulong XSquareMask = 0b0000000001000010000000000000000000000000000000000100001000000000ul;
 
+    private const ulong CSquareMask = 0b0100001010000001000000000000000000000000000000001000000101000010ul;
+
     private readonly BoardAnalyser _analyser;
 
     public Board Board { get; }
@@ -185,6 +187,12 @@ public class Core
         delta -= BitOperations.PopCount(playerPlane.Pieces & XSquareMask);
 
         score += delta * 80;
+
+        delta = BitOperations.PopCount(opponentPlane.Pieces & CSquareMask);
+
+        delta -= BitOperations.PopCount(playerPlane.Pieces & CSquareMask);
+
+        score += delta * 60;
 
         delta = BitOperations.PopCount(playerMoves);
 
