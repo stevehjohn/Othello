@@ -139,8 +139,6 @@ public class Renderer : Game
             Window.Title = difference == 0 
                 ? "Othello. It's a draw." 
                 : $"Othello. Game over. {_coordinator.Winner} wins by {difference}!";
-            
-            Console.WriteLine(Window.Title);
 
             if (_gameOverTime < 0)
             {
@@ -207,6 +205,15 @@ public class Renderer : Game
 
     private void StartGame()
     {
+        if (_gameNumber > 0)
+        {
+            var difference = Math.Abs(_coordinator.Board.BlackScore - _coordinator.Board.WhiteScore);
+
+            Console.WriteLine(difference == 0 
+                ? "It's a draw." 
+                : $"Game over. {_coordinator.Winner} wins by {difference}!");
+        }
+
         Console.WriteLine($"New game {++_gameNumber}.");
 
         var player1IsCpu = _players == 0;
