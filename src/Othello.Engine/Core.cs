@@ -142,27 +142,27 @@ public class Core
     private static int PickNextMove(ulong moves)
     {
         var corners = moves & CornerMask;
-        
+
         if (corners != 0)
         {
             return BitOperations.TrailingZeroCount(corners);
         }
 
-        var xSquares = moves & XSquareMask;
-        
-        if (xSquares == 0)
+        var safeMoves = moves & ~(XSquareMask | CSquareMask);
+
+        if (safeMoves != 0)
         {
-            return BitOperations.TrailingZeroCount(moves);
+            return BitOperations.TrailingZeroCount(safeMoves);
         }
 
-        var nonXSquares = moves & ~XSquareMask;
-        
-        if (nonXSquares != 0)
+        safeMoves = moves & ~XSquareMask;
+
+        if (safeMoves != 0)
         {
-            return BitOperations.TrailingZeroCount(nonXSquares);
+            return BitOperations.TrailingZeroCount(safeMoves);
         }
 
-        return BitOperations.TrailingZeroCount(xSquares);
+        return BitOperations.TrailingZeroCount(moves);
     }
 
 
