@@ -28,6 +28,11 @@ public static class ULongExtensions
 
         public int PickRandomBit()
         {
+            if (value == 0)
+            {
+                return 0;
+            }
+
             var count = BitOperations.PopCount(value);
             
             if (count < 2)
