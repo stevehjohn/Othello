@@ -30,7 +30,7 @@ public class Coordinator
 
     private double _moveCalculatedTime = -1;
 
-    private Stack<Colour> _turns = [];
+    private readonly Stack<Colour> _turns = [];
 
     public bool GameOver => _core.GameOver;
 
